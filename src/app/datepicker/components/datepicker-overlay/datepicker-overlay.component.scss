@@ -1,0 +1,19 @@
+button {
+  all: unset;
+}
+.wrapper {
+  box-shadow: 0px 2px 6px 0px rgba(34, 60, 80, 0.2);
+  border-radius: 6px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  &__arrow {
+    margin: 0 3px;
+  }
+}
+.main {
+  padding: 12px;
+}

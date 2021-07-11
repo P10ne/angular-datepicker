@@ -1,0 +1,25 @@
+<table class="table">
+  <thead>
+    <tr class="row">
+      <th
+        class="cell"
+        *ngFor="let item of monthShortNames"
+      >
+        {{item}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      class="row"
+      *ngFor="let weekMas of days"
+      >
+      <td
+        class="cell cell_day"
+        *ngFor="let day of weekMas"
+        >
+        {{day}}
+      </td>
+    </tr>
+  </tbody>
+</table>
