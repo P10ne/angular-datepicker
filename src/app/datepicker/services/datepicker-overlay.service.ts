@@ -4,9 +4,7 @@ import {DatepickerOverlayComponent} from "../components/datepicker-overlay/datep
 import {ComponentPortal} from "@angular/cdk/portal";
 import {DatepickerOverlayRef} from "../models/DatepickerOverlayRef";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DatepickerOverlayService {
 
   constructor(
