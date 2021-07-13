@@ -5,27 +5,45 @@ import { DatepickerDate } from "../models/DatepickerDate";
 
 @Injectable()
 export class DatepickerDateService {
-  private _date$: BehaviorSubject<DatepickerDate> = new BehaviorSubject(new DatepickerDate());
+  private _selectedDate$: BehaviorSubject<DatepickerDate> = new BehaviorSubject(new DatepickerDate());
 
-  public get date$(): Observable<DatepickerDate> {
-    return this._date$.pipe();
+  private _currentSelectedDate$: BehaviorSubject<DatepickerDate> = new BehaviorSubject<DatepickerDate>(new DatepickerDate());
+
+  public get selectedDate$(): Observable<DatepickerDate> {
+    return this._selectedDate$.pipe();
   }
 
   public get selectedDate(): DatepickerDate {
-    return this._date$.getValue();
+    return this._selectedDate$.getValue();
+  }
+
+  public get currentSelectedDate$(): Observable<DatepickerDate> {
+    return this._currentSelectedDate$.pipe();
+  }
+
+  public get currentSelectedDate(): DatepickerDate {
+    return this._currentSelectedDate$.getValue();
+  }
+
+  public get currentDate(): DatepickerDate {
+    return new DatepickerDate();
   }
 
   constructor() {  }
 
-  setDate(ISODate: string): void {
-    this._date$.next(new DatepickerDate(ISODate));
+  setSelectedDate(ISODate: string): void {
+    this._selectedDate$.next(new DatepickerDate(ISODate));
   }
 
-  getMonthDates(): (DatepickerDate | null)[][] {
+  setCurrentSelectedDate(ISODate: string): void {
+    this._currentSelectedDate$.next(new DatepickerDate(ISODate));
+  }
+
+  getMonthDates(d: any): (DatepickerDate | null)[][] {
     const MAX_WEEKS_AT_MONTH_COUNT = 6;
     const WEEK_DAYS_COUNT = 7;
     const result: (DatepickerDate | null)[][] = [];
-    let date = this.selectedDate.setDate(1);
+    let date = new DatepickerDate(d).setDate(1);
     const monthStartDay: number = date.getDay();
     const daysInMonth = date.getDaysInMonth();
     let exitFlag = false;

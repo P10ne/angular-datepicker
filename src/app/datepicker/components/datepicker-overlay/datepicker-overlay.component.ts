@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./datepicker-overlay.component.scss']
 })
 export class DatepickerOverlayComponent implements OnInit {
+
   constructor() { }
 
   ngOnInit(): void {

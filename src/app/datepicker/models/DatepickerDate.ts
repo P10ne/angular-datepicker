@@ -35,6 +35,10 @@ export class DatepickerDate {
     return new DatepickerDate(this._date.day(v));
   }
 
+  public isSame(ISOString: string, unit: string) {
+    return this._date.isSame(ISOString, unit);
+  }
+
   public getDaysInMonth(): number {
     return this._date.daysInMonth();
   }

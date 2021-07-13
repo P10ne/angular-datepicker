@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {DatepickerDateService} from "../../services/datepicker-date.service";
+import {DatepickerDate} from "../../models/DatepickerDate";
 
 @Component({
   selector: 'app-datepicker-month',
@@ -6,20 +8,99 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./datepicker-month.component.scss']
 })
 export class DatepickerMonthComponent implements OnInit {
-  public monthShortNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
-  public get days(): number[][] {
-    return [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, 31]
-    ];
+  public monthShortNames = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+
+  public monthNames = [
+    'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+  ];
+
+  public days: (DatepickerDate | null)[][] = [];
+
+  public selectedDate!: DatepickerDate;
+
+  public currentSelectedDate!: DatepickerDate;
+
+  // @ts-ignore
+  get month(): string {
+    if (this.currentSelectedDate) {
+      return this.monthNames[this.currentSelectedDate.getMonth()];
+    }
   }
 
-  constructor() { }
+  get year(): number {
+    return this.currentSelectedDate.getYear();
+  }
+
+  get currentDate(): number {
+    // todo создается новый экземпляр при каждом вызове
+    return this.datepickerDateService.currentDate.getDate();
+  }
+
+  constructor(
+    private datepickerDateService: DatepickerDateService
+  ) { }
 
   ngOnInit(): void {
+    this.subscribeToDateChanged();
+  }
+
+  public isCurrentDate(date: DatepickerDate): boolean {
+    if (!date) return false;
+    const currentDate = this.datepickerDateService.currentDate;
+    return date.isSame(currentDate.getISOString(), 'day');
+  }
+
+  public isSelectedDate(date: DatepickerDate): boolean {
+    if (!date) return false;
+    return date.isSame(this.selectedDate.getISOString(), 'day');
+  }
+
+  private subscribeToDateChanged(): void {
+    this.datepickerDateService.currentSelectedDate$.subscribe((selectedDate) => {
+      this.currentSelectedDate = selectedDate;
+      this.days = this.datepickerDateService.getMonthDates(selectedDate.getISOString());
+    });
+
+    this.datepickerDateService.selectedDate$.subscribe(selectedDate => {
+      this.selectedDate = selectedDate;
+    })
+  }
+
+  public nextMonth(): void {
+    this.datepickerDateService.setCurrentSelectedDate(
+      this.datepickerDateService.currentSelectedDate.setMonth(
+        this.datepickerDateService.currentSelectedDate.getMonth() + 1
+      ).getISOString()
+    )
+  }
+
+  public prevMonth(): void {
+    this.datepickerDateService.setCurrentSelectedDate(
+      this.datepickerDateService.currentSelectedDate.setMonth(
+        this.datepickerDateService.currentSelectedDate.getMonth() - 1
+      ).getISOString()
+    )
+  }
+
+  public nextYear(): void {
+    this.datepickerDateService.setCurrentSelectedDate(
+      this.datepickerDateService.currentSelectedDate.setYear(
+        this.datepickerDateService.currentSelectedDate.getYear() + 1
+      ).getISOString()
+    )
+  }
+
+  public prevYear(): void {
+    this.datepickerDateService.setCurrentSelectedDate(
+      this.datepickerDateService.currentSelectedDate.setYear(
+        this.datepickerDateService.currentSelectedDate.getYear() - 1
+      ).getISOString()
+    )
+  }
+
+  public selectMonthDay(ISOString: string): void {
+    this.datepickerDateService.setSelectedDate(ISOString);
   }
 
 }

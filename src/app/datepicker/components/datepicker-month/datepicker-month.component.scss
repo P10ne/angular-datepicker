@@ -1,3 +1,18 @@
+button {
+  all: unset;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  &__arrow {
+    margin: 0 3px;
+  }
+}
+.main {
+  padding: 12px;
+}
 .row {
   display: flex;
 }
@@ -10,9 +25,16 @@
   font-weight: normal;
   &_day {
     cursor: pointer;
-    &:hover {
+    border-radius: 3px;
+    &:hover:not(&_selected) {
       background-color: #efefef;
-      border-radius: 2px;
+    }
+    &_current {
+      border: 1px solid blue;
+    }
+    &_selected {
+      cursor: default;
+      background-color: lightskyblue;
     }
   }
 }
