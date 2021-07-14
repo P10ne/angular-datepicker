@@ -1,6 +1,6 @@
 <div class="wrapper" #datepicker>
-  <input type="text" class="input" />
-  <button class="btn" #btn (click)="open()">
+  <input type="text" class="input" [(ngModel)]="inputValue" />
+  <button class="btn" #btn (click)="openPicker()">
     <span class="icon icon_datepicker">^</span>
   </button>
 </div>

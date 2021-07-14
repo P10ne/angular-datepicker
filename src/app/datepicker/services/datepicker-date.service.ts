@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import { DatepickerDate } from "../models/DatepickerDate";
 
 
 @Injectable()
 export class DatepickerDateService {
-  private _selectedDate$: BehaviorSubject<DatepickerDate> = new BehaviorSubject(new DatepickerDate());
+  private _selectedDate$: BehaviorSubject<DatepickerDate | null> = new BehaviorSubject<DatepickerDate | null>(null);
+
+  private _selectedDate: DatepickerDate | undefined;
 
   private _currentSelectedDate$: BehaviorSubject<DatepickerDate> = new BehaviorSubject<DatepickerDate>(new DatepickerDate());
 
-  public get selectedDate$(): Observable<DatepickerDate> {
+  public get selectedDate$(): Observable<DatepickerDate | null> {
     return this._selectedDate$.pipe();
   }
 
-  public get selectedDate(): DatepickerDate {
-    return this._selectedDate$.getValue();
+  public get selectedDate(): DatepickerDate | undefined {
+    return this._selectedDate;
   }
 
   public get currentSelectedDate$(): Observable<DatepickerDate> {
@@ -72,7 +74,7 @@ export class DatepickerDateService {
   }
 
   getYears(offset: number = 0): number[] {
-    const selectedYear = this.selectedDate.getYear();
+    const selectedYear = this.currentSelectedDate.getYear();
     const startDecadeYear = (Math.floor(selectedYear / 10) + offset) * 10;
     return new Array(10).fill(0).map((v, i) => startDecadeYear + i);
   }

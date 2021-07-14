@@ -23,7 +23,7 @@ export class DatepickerMonthComponent implements OnInit {
 
   public days: (DatepickerDate | null)[][] = [];
 
-  public selectedDate!: DatepickerDate;
+  public selectedDate!: DatepickerDate | null;
 
   public currentSelectedDate!: DatepickerDate;
 
@@ -58,7 +58,7 @@ export class DatepickerMonthComponent implements OnInit {
   }
 
   public isSelectedDate(date: DatepickerDate): boolean {
-    if (!date) return false;
+    if (!date || !this.selectedDate) return false;
     return date.isSame(this.selectedDate.getISOString(), 'day');
   }
 
