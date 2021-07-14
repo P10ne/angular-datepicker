@@ -7,6 +7,7 @@ import { DatepickerMonthComponent } from './components/datepicker-month/datepick
 import {DatepickerOverlayService} from "./services/datepicker-overlay.service";
 import {DatepickerDateService} from "./services/datepicker-date.service";
 import { DatepickerMonthsComponent } from './components/datepicker-months/datepicker-months.component';
+import { DatepickerYearsComponent } from './components/datepicker-years/datepicker-years.component';
 
 
 
@@ -15,7 +16,8 @@ import { DatepickerMonthsComponent } from './components/datepicker-months/datepi
     DatepickerOverlayComponent,
     DatepickerInputComponent,
     DatepickerMonthComponent,
-    DatepickerMonthsComponent
+    DatepickerMonthsComponent,
+    DatepickerYearsComponent
   ],
   imports: [
     CommonModule,

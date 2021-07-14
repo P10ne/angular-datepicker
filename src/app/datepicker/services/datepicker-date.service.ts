@@ -70,4 +70,10 @@ export class DatepickerDateService {
     }
     return result;
   }
+
+  getYears(offset: number = 0): number[] {
+    const selectedYear = this.selectedDate.getYear();
+    const startDecadeYear = (Math.floor(selectedYear / 10) + offset) * 10;
+    return new Array(10).fill(0).map((v, i) => startDecadeYear + i);
+  }
 }
