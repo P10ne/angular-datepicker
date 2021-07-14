@@ -1,5 +1,5 @@
 <div class="wrapper" #datepicker>
-  <input type="text" class="input" [(ngModel)]="inputValue" />
+  <input type="text" class="input" [(ngModel)]="value" (blur)="onTouch($event)" />
   <button class="btn" #btn (click)="openPicker()">
     <span class="icon icon_datepicker">^</span>
   </button>

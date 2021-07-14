@@ -1,19 +1,25 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, forwardRef, OnInit, ViewChild} from '@angular/core';
 import {DatepickerOverlayService} from "../../services/datepicker-overlay.service";
 import {DatepickerDateService} from "../../services/datepicker-date.service";
 import {DatepickerOverlayRef} from "../../models/DatepickerOverlayRef";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
 @Component({
   selector: 'app-datepicker-input',
   templateUrl: './datepicker-input.component.html',
-  styleUrls: ['./datepicker-input.component.scss']
+  styleUrls: ['./datepicker-input.component.scss'],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => DatepickerInputComponent),
+    multi: true
+  }]
 })
-export class DatepickerInputComponent implements OnInit {
+export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlValueAccessor {
   @ViewChild('datepicker', {read: ElementRef}) private datepicker!: ElementRef;
 
   @ViewChild('btn', {read: ElementRef}) private btn!: ElementRef;
 
-  public inputValue: string = '';
+  public inputValue: string | null = null;
 
   private layoutRef: DatepickerOverlayRef | undefined;
 
@@ -27,21 +33,52 @@ export class DatepickerInputComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribeToSelectedDateChange();
-    this.initDate();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.initDate());
   }
 
   private subscribeToSelectedDateChange(): void {
     this.datepickerDateService.selectedDate$.subscribe(date => {
       if (date) {
-        this.inputValue = date?.getISOString();
+        this.value = date?.getISOString();
         this.layoutRef?.close();
       }
     });
   }
 
   private initDate(): void {
-    this.datepickerDateService.setSelectedDate(this.inputValue);
-    this.datepickerDateService.setCurrentSelectedDate(this.inputValue);
+    if (this.inputValue) {
+      this.datepickerDateService.setSelectedDate(this.inputValue);
+      this.datepickerDateService.setCurrentSelectedDate(this.inputValue);
+    }
+  }
+
+  // ControlValueAccessor implementation
+  onChange: any = () => {}
+  onTouch: any = () => {}
+
+  set value(val: string | null) {
+    this.inputValue = val;
+    this.onChange(val);
+    this.onTouch();
+  }
+
+  get value(): string | null {
+    return this.inputValue;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+
+  writeValue(obj: string): void {
+    this.value = obj;
   }
 
 }
