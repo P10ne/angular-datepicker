@@ -1,56 +1,68 @@
-<div class="header">
-  <div class="header-actions">
-    <button class="header__arrow" (click)="prevYear()">
-      <<
-    </button>
-    <button class="header__arrow" (click)="prevMonth()">
-      <
-    </button>
-  </div>
-  <div class="header-content">
-    <div class="header-date">
-      <span class="header-date__month">{{month}}</span>
-      <span class="header-date__separate">, </span>
-      <span class="header-date__year">{{year}}</span>
+<div>
+  <div class="header">
+    <div class="header-actions">
+      <button class="header__arrow" (click)="prevYear()">
+        <<
+      </button>
+      <button class="header__arrow" (click)="prevMonth()">
+        <
+      </button>
+    </div>
+    <div class="header-content">
+      <div class="header-date">
+        <span
+          class="header-date__month"
+          (click)="changeMonth.emit()"
+        >
+          {{month}}
+        </span>
+        <span class="header-date__separate">, </span>
+        <span
+          class="header-date__year"
+          (click)="changeYear.emit()"
+        >
+          {{year}}
+        </span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="header__arrow" (click)="nextMonth()">
+        >
+      </button>
+      <button class="header__arrow" (click)="nextYear()">
+        >>
+      </button>
     </div>
   </div>
-  <div class="header-actions">
-    <button class="header__arrow" (click)="nextMonth()">
+  <div class="main">
+    <table class="table">
+      <thead>
+      <tr class="row">
+        <th
+          class="cell"
+          *ngFor="let item of monthShortNames"
+        >
+          {{item}}
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+        class="row"
+        *ngFor="let weekMas of days"
       >
-    </button>
-    <button class="header__arrow" (click)="nextYear()">
-      >>
-    </button>
+        <td
+          class="cell"
+          [class.cell_day]="!!date"
+          [class.cell_day_current]="isCurrentDate(date!)"
+          [class.cell_day_selected]="isSelectedDate(date!)"
+          *ngFor="let date of weekMas"
+          (click)="!!date && selectMonthDay(date.getISOString())"
+        >
+          {{date?.getDate()}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-</div>
-<div class="main">
-  <table class="table">
-    <thead>
-    <tr class="row">
-      <th
-        class="cell"
-        *ngFor="let item of monthShortNames"
-      >
-        {{item}}
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr
-      class="row"
-      *ngFor="let weekMas of days"
-    >
-      <td
-        class="cell"
-        [class.cell_day]="!!date"
-        [class.cell_day_current]="isCurrentDate(date!)"
-        [class.cell_day_selected]="isSelectedDate(date!)"
-        *ngFor="let date of weekMas"
-        (click)="!!date && selectMonthDay(date.getISOString())"
-      >
-        {{date?.getDate()}}
-      </td>
-    </tr>
-    </tbody>
-  </table>
 </div>

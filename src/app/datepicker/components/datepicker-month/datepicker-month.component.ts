@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DatepickerDateService} from "../../services/datepicker-date.service";
 import {DatepickerDate} from "../../models/DatepickerDate";
 
@@ -8,6 +8,12 @@ import {DatepickerDate} from "../../models/DatepickerDate";
   styleUrls: ['./datepicker-month.component.scss']
 })
 export class DatepickerMonthComponent implements OnInit {
+  @Output()
+  changeMonth: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output()
+  changeYear: EventEmitter<void> = new EventEmitter<void>();
+
   public monthShortNames = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 
   public monthNames = [

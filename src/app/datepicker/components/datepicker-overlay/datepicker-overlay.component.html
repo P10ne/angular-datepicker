@@ -1,3 +1,20 @@
 <div class="wrapper">
-  <app-datepicker-month></app-datepicker-month>
+  <ng-container [ngSwitch]="pickerType">
+    <ng-template [ngSwitchCase]="pickerTypes.Days">
+      <app-datepicker-month
+        (changeMonth)="goToSelectMonth()"
+        (changeYear)="goToSelectYear()"
+      ></app-datepicker-month>
+    </ng-template>
+    <ng-template [ngSwitchCase]="pickerTypes.Months">
+      <app-datepicker-months
+        (monthSelected)="goToSelectDay()"
+      ></app-datepicker-months>
+    </ng-template>
+    <ng-template [ngSwitchCase]="pickerTypes.Years">
+      <app-datepicker-years
+        (yearSelected)="goToSelectMonth()"
+      ></app-datepicker-years>
+    </ng-template>
+  </ng-container>
 </div>
