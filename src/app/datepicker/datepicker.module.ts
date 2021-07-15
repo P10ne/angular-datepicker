@@ -10,6 +10,7 @@ import { DatepickerMonthsComponent } from './components/datepicker-months/datepi
 import { DatepickerYearsComponent } from './components/datepicker-years/datepicker-years.component';
 import {FormsModule} from "@angular/forms";
 import {DatepickerDateService} from "./services/datepicker-date.service";
+import {SharedModule} from "../shared/shared.module";
 
 
 
@@ -22,9 +23,9 @@ import {DatepickerDateService} from "./services/datepicker-date.service";
     DatepickerYearsComponent
   ],
   imports: [
-    CommonModule,
     OverlayModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   exports: [
     DatepickerInputComponent

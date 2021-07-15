@@ -3,16 +3,21 @@ import {DatepickerOverlayService} from "../../services/datepicker-overlay.servic
 import {DatepickerService} from "../../services/datepicker.service";
 import {DatepickerOverlayRef} from "../../models/DatepickerOverlayRef";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {DestroyService} from "../../../shared/services/destroy.service";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-datepicker-input',
   templateUrl: './datepicker-input.component.html',
   styleUrls: ['./datepicker-input.component.scss'],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => DatepickerInputComponent),
-    multi: true
-  }]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DatepickerInputComponent),
+      multi: true
+    },
+    DestroyService
+  ]
 })
 export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlValueAccessor {
   @ViewChild('datepicker', {read: ElementRef}) private datepicker!: ElementRef;
@@ -25,7 +30,8 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
 
   constructor(
     private datepickerOverlayService: DatepickerOverlayService,
-    private datepickerService: DatepickerService
+    private datepickerService: DatepickerService,
+    private destroy$: DestroyService
   ) {}
   public openPicker(): void {
     this.layoutRef = this.datepickerOverlayService.open(this.datepicker);
@@ -40,7 +46,9 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
   }
 
   private subscribeToSelectedDateChange(): void {
-    this.datepickerService.selectedDate$.subscribe(date => {
+    this.datepickerService.selectedDate$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(date => {
       if (date) {
         this.value = date?.getISOString();
         this.layoutRef?.close();

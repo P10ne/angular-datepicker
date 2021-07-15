@@ -1,11 +1,14 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DatepickerService} from "../../services/datepicker.service";
 import {DatepickerDate} from "../../models/DatepickerDate";
+import {takeUntil} from "rxjs/operators";
+import {DestroyService} from "../../../shared/services/destroy.service";
 
 @Component({
   selector: 'app-datepicker-month',
   templateUrl: './datepicker-month.component.html',
-  styleUrls: ['./datepicker-month.component.scss']
+  styleUrls: ['./datepicker-month.component.scss'],
+  providers: [DestroyService]
 })
 export class DatepickerMonthComponent implements OnInit {
   @Output()
@@ -44,7 +47,8 @@ export class DatepickerMonthComponent implements OnInit {
   }
 
   constructor(
-    private datepickerService: DatepickerService
+    private datepickerService: DatepickerService,
+    private destroy$: DestroyService
   ) { }
 
   ngOnInit(): void {
@@ -63,12 +67,16 @@ export class DatepickerMonthComponent implements OnInit {
   }
 
   private subscribeToDateChanged(): void {
-    this.datepickerService.currentSelectedDate$.subscribe((selectedDate) => {
+    this.datepickerService.currentSelectedDate$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((selectedDate) => {
       this.currentSelectedDate = selectedDate;
       this.days = this.datepickerService.getMonthDates(selectedDate.getISOString());
     });
 
-    this.datepickerService.selectedDate$.subscribe(selectedDate => {
+    this.datepickerService.selectedDate$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(selectedDate => {
       this.selectedDate = selectedDate;
     })
   }
