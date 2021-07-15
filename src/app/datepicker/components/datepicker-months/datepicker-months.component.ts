@@ -24,7 +24,7 @@ export class DatepickerMonthsComponent implements OnInit {
 
   public selectMonth(month: number): void {
     this.datepickerService.setCurrentSelectedDate(
-      this.datepickerService.currentSelectedDate.setMonth(month).getISOString()
+      this.datepickerService.currentSelectedDate.setMonth(month).getJSDate()
     )
     this.monthSelected.emit();
   }

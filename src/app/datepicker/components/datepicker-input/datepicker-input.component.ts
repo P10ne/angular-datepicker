@@ -24,7 +24,7 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
 
   @ViewChild('btn', {read: ElementRef}) private btn!: ElementRef;
 
-  public inputValue: string | null = null;
+  public inputValue: Date | null = null;
 
   private layoutRef: DatepickerOverlayRef | undefined;
 
@@ -50,7 +50,7 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
       takeUntil(this.destroy$)
     ).subscribe(date => {
       if (date) {
-        this.value = date?.getISOString();
+        this.value = date.getJSDate();
         this.layoutRef?.close();
       }
     });
@@ -67,13 +67,13 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
   onChange: any = () => {}
   onTouch: any = () => {}
 
-  set value(val: string | null) {
+  set value(val: Date | null) {
     this.inputValue = val;
     this.onChange(val);
     this.onTouch();
   }
 
-  get value(): string | null {
+  get value(): Date | null {
     return this.inputValue;
   }
 
@@ -85,7 +85,7 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
     this.onTouch = fn;
   }
 
-  writeValue(obj: string): void {
+  writeValue(obj: Date | null): void {
     this.value = obj;
   }
 

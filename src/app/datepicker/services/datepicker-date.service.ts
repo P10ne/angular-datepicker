@@ -4,6 +4,7 @@ import * as dayjs from 'dayjs';
 import * as ru_locale from 'dayjs/locale/ru';
 import * as updateLocale from 'dayjs/plugin/updateLocale';
 import * as weekday from 'dayjs/plugin/weekday';
+import {ConfigType} from "dayjs";
 
 @Injectable()
 export class DatepickerDateService {
@@ -15,7 +16,7 @@ export class DatepickerDateService {
     dayjs.extend(weekday);
   }
 
-  public create(...args: any[]): DatepickerDate {
-    return new DatepickerDate(...args);
+  public create(config?: ConfigType): DatepickerDate {
+    return new DatepickerDate(config);
   }
 }

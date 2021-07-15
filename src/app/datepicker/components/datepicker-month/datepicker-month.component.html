@@ -57,7 +57,7 @@
           [class.cell_day_current]="isCurrentDate(date!)"
           [class.cell_day_selected]="isSelectedDate(date!)"
           *ngFor="let date of weekMas"
-          (click)="!!date && selectMonthDay(date.getISOString())"
+          (click)="!!date && selectMonthDay(date.getJSDate())"
         >
           {{date?.getDate()}}
         </td>

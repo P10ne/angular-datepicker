@@ -36,8 +36,8 @@ export class DatepickerDate {
     return new DatepickerDate(this._date.weekday(v));
   }
 
-  public isSame(ISOString: string, unit: OpUnitType) {
-    return this._date.isSame(ISOString, unit);
+  public isSame(date: Date, unit: OpUnitType) {
+    return this._date.isSame(date, unit);
   }
 
   public getDaysInMonth(): number {
@@ -46,6 +46,10 @@ export class DatepickerDate {
 
   public getISOString(): string {
     return this._date.toISOString();
+  }
+
+  public getJSDate(): Date {
+    return this._date.toDate();
   }
 
   constructor(config?: ConfigType) {

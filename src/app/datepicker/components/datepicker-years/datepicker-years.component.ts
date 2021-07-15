@@ -29,7 +29,7 @@ export class DatepickerYearsComponent implements OnInit {
 
   public selectYear(year: number): void {
     this.datepickerService.setCurrentSelectedDate(
-      this.datepickerService.currentSelectedDate.setYear(year).getISOString()
+      this.datepickerService.currentSelectedDate.setYear(year).getJSDate()
     )
     this.yearSelected.emit();
   }

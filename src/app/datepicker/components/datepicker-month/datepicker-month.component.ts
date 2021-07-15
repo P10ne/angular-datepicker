@@ -58,12 +58,12 @@ export class DatepickerMonthComponent implements OnInit {
   public isCurrentDate(date: DatepickerDate): boolean {
     if (!date) return false;
     const currentDate = this.datepickerService.currentDate;
-    return date.isSame(currentDate.getISOString(), 'day');
+    return date.isSame(currentDate.getJSDate(), 'day');
   }
 
   public isSelectedDate(date: DatepickerDate): boolean {
     if (!date || !this.selectedDate) return false;
-    return date.isSame(this.selectedDate.getISOString(), 'day');
+    return date.isSame(this.selectedDate.getJSDate(), 'day');
   }
 
   private subscribeToDateChanged(): void {
@@ -71,7 +71,7 @@ export class DatepickerMonthComponent implements OnInit {
       takeUntil(this.destroy$)
     ).subscribe((selectedDate) => {
       this.currentSelectedDate = selectedDate;
-      this.days = this.datepickerService.getMonthDates(selectedDate.getISOString());
+      this.days = this.datepickerService.getMonthDates(selectedDate.getJSDate());
     });
 
     this.datepickerService.selectedDate$.pipe(
@@ -85,7 +85,7 @@ export class DatepickerMonthComponent implements OnInit {
     this.datepickerService.setCurrentSelectedDate(
       this.datepickerService.currentSelectedDate.setMonth(
         this.datepickerService.currentSelectedDate.getMonth() + 1
-      ).getISOString()
+      ).getJSDate()
     )
   }
 
@@ -93,7 +93,7 @@ export class DatepickerMonthComponent implements OnInit {
     this.datepickerService.setCurrentSelectedDate(
       this.datepickerService.currentSelectedDate.setMonth(
         this.datepickerService.currentSelectedDate.getMonth() - 1
-      ).getISOString()
+      ).getJSDate()
     )
   }
 
@@ -101,7 +101,7 @@ export class DatepickerMonthComponent implements OnInit {
     this.datepickerService.setCurrentSelectedDate(
       this.datepickerService.currentSelectedDate.setYear(
         this.datepickerService.currentSelectedDate.getYear() + 1
-      ).getISOString()
+      ).getJSDate()
     )
   }
 
@@ -109,12 +109,12 @@ export class DatepickerMonthComponent implements OnInit {
     this.datepickerService.setCurrentSelectedDate(
       this.datepickerService.currentSelectedDate.setYear(
         this.datepickerService.currentSelectedDate.getYear() - 1
-      ).getISOString()
+      ).getJSDate()
     )
   }
 
-  public selectMonthDay(ISOString: string): void {
-    this.datepickerService.setSelectedDate(ISOString);
+  public selectMonthDay(date: Date): void {
+    this.datepickerService.setSelectedDate(date);
   }
 
 }

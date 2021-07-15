@@ -36,15 +36,15 @@ export class DatepickerService {
     private datepickerDateService: DatepickerDateService
   ) {  }
 
-  setSelectedDate(ISODate: string): void {
-    this._selectedDate$.next(this.datepickerDateService.create(ISODate));
+  setSelectedDate(date: Date): void {
+    this._selectedDate$.next(this.datepickerDateService.create(date));
   }
 
-  setCurrentSelectedDate(ISODate: string): void {
-    this._currentSelectedDate$.next(this.datepickerDateService.create(ISODate));
+  setCurrentSelectedDate(date: Date): void {
+    this._currentSelectedDate$.next(this.datepickerDateService.create(date));
   }
 
-  getMonthDates(d: any): (DatepickerDate | null)[][] {
+  getMonthDates(d: Date): (DatepickerDate | null)[][] {
     const MAX_WEEKS_AT_MONTH_COUNT = 6;
     const WEEK_DAYS_COUNT = 7;
     const result: (DatepickerDate | null)[][] = [];
@@ -54,15 +54,15 @@ export class DatepickerService {
     let exitFlag = false;
     for (let week = 0; week <= MAX_WEEKS_AT_MONTH_COUNT; week++) {
       const weekDates = new Array(WEEK_DAYS_COUNT).fill(null).map((value, weekDayIndex) => {
-        if (exitFlag) return this.datepickerDateService.create(date.getISOString());
+        if (exitFlag) return this.datepickerDateService.create(date.getJSDate());
         let d = null;
         if (week === 0) { // Первая неделя
           if (monthStartDay <= weekDayIndex) {
-            d = this.datepickerDateService.create(date.getISOString());
+            d = this.datepickerDateService.create(date.getJSDate());
             date = date.setDate(date.getDate() + 1);
           }
         } else {
-          d = this.datepickerDateService.create(date.getISOString());
+          d = this.datepickerDateService.create(date.getJSDate());
           date = date.setDate(date.getDate() + 1);
         }
         if (date.getDate() === daysInMonth ) {
