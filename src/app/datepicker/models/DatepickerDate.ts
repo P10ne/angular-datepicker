@@ -1,5 +1,5 @@
 import * as dayjs from 'dayjs';
-import {Dayjs, OpUnitType, ConfigType} from "dayjs";
+import {Dayjs, OpUnitType, ConfigType, OptionType} from "dayjs";
 
 export class DatepickerDate {
   private _date: Dayjs;
@@ -52,7 +52,11 @@ export class DatepickerDate {
     return this._date.toDate();
   }
 
-  constructor(config?: ConfigType) {
-    this._date = dayjs(config);
+  public isValid(): boolean {
+    return this._date.isValid();
+  }
+
+  constructor(config?: ConfigType, format?: OptionType, strict?: boolean) {
+    this._date = dayjs(config, format, strict);
   }
 }

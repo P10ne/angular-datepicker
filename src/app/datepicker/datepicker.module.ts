@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { OverlayModule } from "@angular/cdk/overlay";
 import { DatepickerOverlayComponent } from "./components/datepicker-overlay/datepicker-overlay.component";
 import { DatepickerInputComponent } from './components/datepicker-input/datepicker-input.component';
@@ -11,7 +10,7 @@ import { DatepickerYearsComponent } from './components/datepicker-years/datepick
 import {FormsModule} from "@angular/forms";
 import {DatepickerDateService} from "./services/datepicker-date.service";
 import {SharedModule} from "../shared/shared.module";
-
+import { NgxMaskModule } from 'ngx-mask'
 
 
 @NgModule({
@@ -25,7 +24,8 @@ import {SharedModule} from "../shared/shared.module";
   imports: [
     OverlayModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    NgxMaskModule.forRoot(),
   ],
   exports: [
     DatepickerInputComponent

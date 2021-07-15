@@ -5,6 +5,7 @@ import {DatepickerOverlayRef} from "../../models/DatepickerOverlayRef";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {DestroyService} from "../../../shared/services/destroy.service";
 import {takeUntil} from "rxjs/operators";
+import {DatepickerDate} from "../../models/DatepickerDate";
 
 @Component({
   selector: 'app-datepicker-input',
@@ -87,6 +88,13 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
 
   writeValue(obj: Date | null): void {
     this.value = obj;
+  }
+
+  modelChangeHandler(nextModelValue: string): void {
+    const date = new DatepickerDate(nextModelValue, 'DD.MM.YYYY', true);
+    if (date.isValid()) {
+      this.value = date.getJSDate();
+    }
   }
 
 }
