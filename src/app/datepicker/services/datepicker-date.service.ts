@@ -13,10 +13,9 @@ export class DatepickerDateService {
     dayjs.updateLocale('ru', ru_locale);
 
     dayjs.extend(weekday);
-    DatepickerDate.dateLib = dayjs;
   }
 
   public create(...args: any[]): DatepickerDate {
-    return new DatepickerDate(dayjs, ...args);
+    return new DatepickerDate(...args);
   }
 }
