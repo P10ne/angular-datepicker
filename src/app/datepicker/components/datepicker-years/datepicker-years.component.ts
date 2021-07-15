@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {DatepickerDateService} from "../../services/datepicker-date.service";
+import {DatepickerService} from "../../services/datepicker.service";
 
 @Component({
   selector: 'app-datepicker-years',
@@ -15,21 +15,21 @@ export class DatepickerYearsComponent implements OnInit {
   public years: number[] = [];
 
   constructor(
-    private datepickerDateService: DatepickerDateService
+    private datepickerService: DatepickerService
   ) { }
 
   ngOnInit(): void {
-    this.years = this.datepickerDateService.getYears();
+    this.years = this.datepickerService.getYears();
   }
 
   public updateYears(offSetDirection: -1 | 1): void {
     this.currentYearOffset += offSetDirection;
-    this.years = this.datepickerDateService.getYears(this.currentYearOffset);
+    this.years = this.datepickerService.getYears(this.currentYearOffset);
   }
 
   public selectYear(year: number): void {
-    this.datepickerDateService.setCurrentSelectedDate(
-      this.datepickerDateService.currentSelectedDate.setYear(year).getISOString()
+    this.datepickerService.setCurrentSelectedDate(
+      this.datepickerService.currentSelectedDate.setYear(year).getISOString()
     )
     this.yearSelected.emit();
   }

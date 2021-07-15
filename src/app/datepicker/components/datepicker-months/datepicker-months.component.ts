@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {DatepickerDateService} from "../../services/datepicker-date.service";
+import {DatepickerService} from "../../services/datepicker.service";
 
 @Component({
   selector: 'app-datepicker-months',
@@ -16,15 +16,15 @@ export class DatepickerMonthsComponent implements OnInit {
   ];
 
   constructor(
-    private datepickerDateService: DatepickerDateService
+    private datepickerService: DatepickerService
   ) { }
 
   ngOnInit(): void {
   }
 
   public selectMonth(month: number): void {
-    this.datepickerDateService.setCurrentSelectedDate(
-      this.datepickerDateService.currentSelectedDate.setMonth(month).getISOString()
+    this.datepickerService.setCurrentSelectedDate(
+      this.datepickerService.currentSelectedDate.setMonth(month).getISOString()
     )
     this.monthSelected.emit();
   }

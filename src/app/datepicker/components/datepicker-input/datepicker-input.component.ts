@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, forwardRef, OnInit, ViewChild} from '@angular/core';
 import {DatepickerOverlayService} from "../../services/datepicker-overlay.service";
-import {DatepickerDateService} from "../../services/datepicker-date.service";
+import {DatepickerService} from "../../services/datepicker.service";
 import {DatepickerOverlayRef} from "../../models/DatepickerOverlayRef";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
@@ -25,7 +25,7 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
 
   constructor(
     private datepickerOverlayService: DatepickerOverlayService,
-    private datepickerDateService: DatepickerDateService
+    private datepickerService: DatepickerService
   ) {}
   public openPicker(): void {
     this.layoutRef = this.datepickerOverlayService.open(this.datepicker);
@@ -40,7 +40,7 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
   }
 
   private subscribeToSelectedDateChange(): void {
-    this.datepickerDateService.selectedDate$.subscribe(date => {
+    this.datepickerService.selectedDate$.subscribe(date => {
       if (date) {
         this.value = date?.getISOString();
         this.layoutRef?.close();
@@ -50,8 +50,8 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
 
   private initDate(): void {
     if (this.inputValue) {
-      this.datepickerDateService.setSelectedDate(this.inputValue);
-      this.datepickerDateService.setCurrentSelectedDate(this.inputValue);
+      this.datepickerService.setSelectedDate(this.inputValue);
+      this.datepickerService.setCurrentSelectedDate(this.inputValue);
     }
   }
 

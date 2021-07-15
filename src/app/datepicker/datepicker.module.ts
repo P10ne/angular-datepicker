@@ -5,10 +5,11 @@ import { DatepickerOverlayComponent } from "./components/datepicker-overlay/date
 import { DatepickerInputComponent } from './components/datepicker-input/datepicker-input.component';
 import { DatepickerMonthComponent } from './components/datepicker-month/datepicker-month.component';
 import {DatepickerOverlayService} from "./services/datepicker-overlay.service";
-import {DatepickerDateService} from "./services/datepicker-date.service";
+import {DatepickerService} from "./services/datepicker.service";
 import { DatepickerMonthsComponent } from './components/datepicker-months/datepicker-months.component';
 import { DatepickerYearsComponent } from './components/datepicker-years/datepicker-years.component';
 import {FormsModule} from "@angular/forms";
+import {DatepickerDateService} from "./services/datepicker-date.service";
 
 
 
@@ -33,6 +34,7 @@ import {FormsModule} from "@angular/forms";
   ],
   providers: [
     DatepickerOverlayService,
+    DatepickerService,
     DatepickerDateService
   ]
 })

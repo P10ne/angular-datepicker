@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {DatepickerDateService} from "../../services/datepicker-date.service";
+import {DatepickerService} from "../../services/datepicker.service";
 import {DatepickerDate} from "../../models/DatepickerDate";
 
 @Component({
@@ -14,7 +14,7 @@ export class DatepickerMonthComponent implements OnInit {
   @Output()
   changeYear: EventEmitter<void> = new EventEmitter<void>();
 
-  public monthShortNames = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+  public monthShortNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
   public monthNames = [
     'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
@@ -40,11 +40,11 @@ export class DatepickerMonthComponent implements OnInit {
 
   get currentDate(): number {
     // todo создается новый экземпляр при каждом вызове
-    return this.datepickerDateService.currentDate.getDate();
+    return this.datepickerService.currentDate.getDate();
   }
 
   constructor(
-    private datepickerDateService: DatepickerDateService
+    private datepickerService: DatepickerService
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +53,7 @@ export class DatepickerMonthComponent implements OnInit {
 
   public isCurrentDate(date: DatepickerDate): boolean {
     if (!date) return false;
-    const currentDate = this.datepickerDateService.currentDate;
+    const currentDate = this.datepickerService.currentDate;
     return date.isSame(currentDate.getISOString(), 'day');
   }
 
@@ -63,50 +63,50 @@ export class DatepickerMonthComponent implements OnInit {
   }
 
   private subscribeToDateChanged(): void {
-    this.datepickerDateService.currentSelectedDate$.subscribe((selectedDate) => {
+    this.datepickerService.currentSelectedDate$.subscribe((selectedDate) => {
       this.currentSelectedDate = selectedDate;
-      this.days = this.datepickerDateService.getMonthDates(selectedDate.getISOString());
+      this.days = this.datepickerService.getMonthDates(selectedDate.getISOString());
     });
 
-    this.datepickerDateService.selectedDate$.subscribe(selectedDate => {
+    this.datepickerService.selectedDate$.subscribe(selectedDate => {
       this.selectedDate = selectedDate;
     })
   }
 
   public nextMonth(): void {
-    this.datepickerDateService.setCurrentSelectedDate(
-      this.datepickerDateService.currentSelectedDate.setMonth(
-        this.datepickerDateService.currentSelectedDate.getMonth() + 1
+    this.datepickerService.setCurrentSelectedDate(
+      this.datepickerService.currentSelectedDate.setMonth(
+        this.datepickerService.currentSelectedDate.getMonth() + 1
       ).getISOString()
     )
   }
 
   public prevMonth(): void {
-    this.datepickerDateService.setCurrentSelectedDate(
-      this.datepickerDateService.currentSelectedDate.setMonth(
-        this.datepickerDateService.currentSelectedDate.getMonth() - 1
+    this.datepickerService.setCurrentSelectedDate(
+      this.datepickerService.currentSelectedDate.setMonth(
+        this.datepickerService.currentSelectedDate.getMonth() - 1
       ).getISOString()
     )
   }
 
   public nextYear(): void {
-    this.datepickerDateService.setCurrentSelectedDate(
-      this.datepickerDateService.currentSelectedDate.setYear(
-        this.datepickerDateService.currentSelectedDate.getYear() + 1
+    this.datepickerService.setCurrentSelectedDate(
+      this.datepickerService.currentSelectedDate.setYear(
+        this.datepickerService.currentSelectedDate.getYear() + 1
       ).getISOString()
     )
   }
 
   public prevYear(): void {
-    this.datepickerDateService.setCurrentSelectedDate(
-      this.datepickerDateService.currentSelectedDate.setYear(
-        this.datepickerDateService.currentSelectedDate.getYear() - 1
+    this.datepickerService.setCurrentSelectedDate(
+      this.datepickerService.currentSelectedDate.setYear(
+        this.datepickerService.currentSelectedDate.getYear() - 1
       ).getISOString()
     )
   }
 
   public selectMonthDay(ISOString: string): void {
-    this.datepickerDateService.setSelectedDate(ISOString);
+    this.datepickerService.setSelectedDate(ISOString);
   }
 
 }
