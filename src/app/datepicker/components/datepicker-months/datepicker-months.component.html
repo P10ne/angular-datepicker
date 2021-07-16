@@ -1,0 +1,9 @@
+<div class="months">
+  <span
+    *ngFor="let month of monthNames; let i = index"
+    (click)="selectMonth(i)"
+    class="item"
+  >
+    {{month}}
+  </span>
+</div>

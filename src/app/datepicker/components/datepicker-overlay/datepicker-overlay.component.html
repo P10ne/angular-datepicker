@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <ng-container [ngSwitch]="pickerType">
+    <ng-template [ngSwitchCase]="pickerTypes.Days">
+      <app-datepicker-month
+        (changeMonth)="setCurrentSelectedMonth($event)"
+        (changeYear)="setCurrentSelectedYear($event)"
+        (monthClick)="goToSelectMonth()"
+        (yearClick)="goToSelectYear()"
+        (selectDay)="selectDayHandler($event)"
+      ></app-datepicker-month>
+    </ng-template>
+    <ng-template [ngSwitchCase]="pickerTypes.Months">
+      <app-datepicker-months
+        (monthSelected)="selectMonthHandler($event)"
+      ></app-datepicker-months>
+    </ng-template>
+    <ng-template [ngSwitchCase]="pickerTypes.Years">
+      <app-datepicker-years
+        (yearSelected)="selectYearHandler($event)"
+      ></app-datepicker-years>
+    </ng-template>
+  </ng-container>
+</div>
