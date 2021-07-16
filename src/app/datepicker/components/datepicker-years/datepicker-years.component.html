@@ -1,0 +1,31 @@
+<div class="years">
+  <div class="header">
+    <div class="header-actions">
+      <button class="header__arrow" (click)="updateYears(-1)">
+        <<
+      </button>
+    </div>
+    <div class="header-content">
+      <div class="header-date">
+        <span
+          *ngIf="years && years.length > 0"
+          class="header-date__month"
+        >
+          {{years[0]}} - {{years[years.length - 1]}}
+        </span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="header__arrow" (click)="updateYears(1)">
+        >>
+      </button>
+    </div>
+  </div>
+  <div class="main">
+    <span
+      *ngFor="let item of years"
+      class="item"
+      (click)="selectYear(item)"
+    >{{item}}</span>
+  </div>
+</div>
