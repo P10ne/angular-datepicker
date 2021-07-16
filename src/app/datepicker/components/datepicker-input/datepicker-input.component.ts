@@ -17,6 +17,7 @@ import {DatepickerDate} from "../../models/DatepickerDate";
       useExisting: forwardRef(() => DatepickerInputComponent),
       multi: true
     },
+    DatepickerService,
     DestroyService
   ]
 })
@@ -35,7 +36,10 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
     private destroy$: DestroyService
   ) {}
   public openPicker(): void {
-    this.layoutRef = this.datepickerOverlayService.open(this.datepicker);
+    this.layoutRef = this.datepickerOverlayService.open(
+      this.datepicker,
+      this.datepickerService
+    );
   }
 
   ngOnInit(): void {

@@ -35,7 +35,6 @@ import { NgxMaskModule } from 'ngx-mask'
   ],
   providers: [
     DatepickerOverlayService,
-    DatepickerService,
     DatepickerDateService
   ]
 })
