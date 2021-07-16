@@ -45,33 +45,22 @@ export class DatepickerService {
   }
 
   getMonthDates(d: Date): (DatepickerDate | null)[][] {
-    const MAX_WEEKS_AT_MONTH_COUNT = 6;
-    const WEEK_DAYS_COUNT = 7;
-    const result: (DatepickerDate | null)[][] = [];
-    let date = this.datepickerDateService.create(d).setDate(1);
+    const date = this.datepickerDateService.create(d).setDate(1);
     const monthStartDay: number = date.getDay();
     const daysInMonth = date.getDaysInMonth();
-    let exitFlag = false;
-    for (let week = 0; week <= MAX_WEEKS_AT_MONTH_COUNT; week++) {
-      const weekDates = new Array(WEEK_DAYS_COUNT).fill(null).map((value, weekDayIndex) => {
-        if (exitFlag) return this.datepickerDateService.create(date.getJSDate());
-        let d = null;
-        if (week === 0) { // Первая неделя
-          if (monthStartDay <= weekDayIndex) {
-            d = this.datepickerDateService.create(date.getJSDate());
-            date = date.setDate(date.getDate() + 1);
-          }
-        } else {
-          d = this.datepickerDateService.create(date.getJSDate());
-          date = date.setDate(date.getDate() + 1);
-        }
-        if (date.getDate() === daysInMonth ) {
-          exitFlag = true;
-        }
-        return d;
-      });
+    const daysInMonthWithStartNulls = daysInMonth + monthStartDay;
+    const flatMonthDays = new Array(daysInMonthWithStartNulls).fill(null).map((_, i) => {
+      if (i < monthStartDay || i > daysInMonthWithStartNulls) { return null }
+      else {
+        return date.setDate(i - monthStartDay + 1);
+      }
+    });
+
+    const DAYS_IN_WEEK = 7;
+    const result: (DatepickerDate | null)[][] = [];
+    while(flatMonthDays.length > 0) {
+      const weekDates = flatMonthDays.splice(0, DAYS_IN_WEEK);
       result.push(weekDates);
-      if (exitFlag) { break; }
     }
     return result;
   }
