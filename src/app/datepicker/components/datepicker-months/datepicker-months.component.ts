@@ -1,5 +1,4 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {DatepickerService} from "../../services/datepicker.service";
 
 @Component({
   selector: 'app-datepicker-months',
@@ -8,25 +7,20 @@ import {DatepickerService} from "../../services/datepicker.service";
 })
 export class DatepickerMonthsComponent implements OnInit {
   @Output()
-  monthSelected: EventEmitter<void> = new EventEmitter<void>();
+  monthSelected: EventEmitter<number> = new EventEmitter<number>();
 
   public monthNames = [
     'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
     'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
   ];
 
-  constructor(
-    private datepickerService: DatepickerService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   public selectMonth(month: number): void {
-    this.datepickerService.setCurrentSelectedDate(
-      this.datepickerService.currentSelectedDate.setMonth(month).getJSDate()
-    )
-    this.monthSelected.emit();
+    this.monthSelected.emit(month);
   }
 
 }

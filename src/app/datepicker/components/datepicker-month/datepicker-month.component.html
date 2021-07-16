@@ -12,14 +12,14 @@
       <div class="header-date">
         <span
           class="header-date__month"
-          (click)="changeMonth.emit()"
+          (click)="monthClick.emit()"
         >
           {{month}}
         </span>
         <span class="header-date__separate">, </span>
         <span
           class="header-date__year"
-          (click)="changeYear.emit()"
+          (click)="yearClick.emit()"
         >
           {{year}}
         </span>

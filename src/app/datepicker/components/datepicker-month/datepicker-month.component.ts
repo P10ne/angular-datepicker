@@ -12,10 +12,19 @@ import {DestroyService} from "../../../shared/services/destroy.service";
 })
 export class DatepickerMonthComponent implements OnInit {
   @Output()
-  changeMonth: EventEmitter<void> = new EventEmitter<void>();
+  changeMonth: EventEmitter<number> = new EventEmitter<number>();
 
   @Output()
-  changeYear: EventEmitter<void> = new EventEmitter<void>();
+  changeYear: EventEmitter<number> = new EventEmitter<number>();
+
+  @Output()
+  monthClick: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output()
+  yearClick: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output()
+  selectDay: EventEmitter<number> = new EventEmitter<number>();
 
   public monthShortNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
@@ -82,35 +91,19 @@ export class DatepickerMonthComponent implements OnInit {
   }
 
   public nextMonth(): void {
-    this.datepickerService.setCurrentSelectedDate(
-      this.datepickerService.currentSelectedDate.setMonth(
-        this.datepickerService.currentSelectedDate.getMonth() + 1
-      ).getJSDate()
-    )
+    this.changeMonth.emit(this.currentSelectedDate.getMonth() + 1);
   }
 
   public prevMonth(): void {
-    this.datepickerService.setCurrentSelectedDate(
-      this.datepickerService.currentSelectedDate.setMonth(
-        this.datepickerService.currentSelectedDate.getMonth() - 1
-      ).getJSDate()
-    )
+    this.changeMonth.emit(this.currentSelectedDate.getMonth() - 1);
   }
 
   public nextYear(): void {
-    this.datepickerService.setCurrentSelectedDate(
-      this.datepickerService.currentSelectedDate.setYear(
-        this.datepickerService.currentSelectedDate.getYear() + 1
-      ).getJSDate()
-    )
+    this.changeYear.emit(this.currentSelectedDate.getYear() + 1);
   }
 
   public prevYear(): void {
-    this.datepickerService.setCurrentSelectedDate(
-      this.datepickerService.currentSelectedDate.setYear(
-        this.datepickerService.currentSelectedDate.getYear() - 1
-      ).getJSDate()
-    )
+    this.changeYear.emit(this.currentSelectedDate.getYear() - 1);
   }
 
   public selectMonthDay(date: Date): void {

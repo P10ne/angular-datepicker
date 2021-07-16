@@ -8,7 +8,7 @@ import {DatepickerService} from "../../services/datepicker.service";
 })
 export class DatepickerYearsComponent implements OnInit {
   @Output()
-  yearSelected: EventEmitter<void> = new EventEmitter<void>();
+  yearSelected: EventEmitter<number> = new EventEmitter<number>();
 
   private currentYearOffset: number = 0;
 
@@ -28,12 +28,6 @@ export class DatepickerYearsComponent implements OnInit {
   }
 
   public selectYear(year: number): void {
-    this.datepickerService.setCurrentSelectedDate(
-      this.datepickerService.currentSelectedDate.setYear(year).getJSDate()
-    )
-    this.yearSelected.emit();
+    this.yearSelected.emit(year);
   }
-
-
-
 }
