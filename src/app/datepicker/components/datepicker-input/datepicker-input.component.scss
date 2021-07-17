@@ -1,4 +1,25 @@
-.btn {
-  all: unset;
-  margin-left: 8px;
+.datepicker {
+  display: flex;
+  align-items: center;
+  width: 150px;
+  height: 32px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 4px 11px;
+  &:hover {
+    border-color: #bcbcbc;
+  }
+  &__input {
+    all: unset;
+    width: 100%;
+  }
+  &__btn {
+    all: unset;
+    margin-left: 8px;
+    cursor: pointer;
+  }
+  &__icon {
+    color: #bcbcbc;
+    font-size: 14px;
+  }
 }

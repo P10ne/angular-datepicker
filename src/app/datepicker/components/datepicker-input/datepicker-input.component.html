@@ -1,12 +1,12 @@
-<div class="wrapper" #datepicker>
-  <input type="text" class="input" (blur)="onTouch($event)"
+<div class="datepicker" #datepicker>
+  <input type="text" class="datepicker__input" (blur)="onTouch($event)"
      [ngModel]="value | date:'dd.MM.yyyy'"
      (ngModelChange)="modelChangeHandler($event)"
      [mask]="'00.00.0000'"
      [dropSpecialCharacters]="false"
   />
-  <button class="btn" #btn (click)="openPicker()">
-    <span class="icon icon_datepicker">
+  <button class="datepicker__btn" #btn (click)="openPicker()">
+    <span class="datepicker__icon">
       <app-svg-icon name="calendar"></app-svg-icon>
     </span>
   </button>
