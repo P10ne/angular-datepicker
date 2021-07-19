@@ -11,7 +11,7 @@ import {CommonModule} from "@angular/common";
   imports: [
     CommonModule,
     BrowserModule,
-    DatepickerModule
+    DatepickerModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })
