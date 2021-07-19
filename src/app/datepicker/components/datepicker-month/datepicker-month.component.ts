@@ -1,8 +1,10 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {DatepickerService} from "../../services/datepicker.service";
 import {DatepickerDate} from "../../models/DatepickerDate";
 import {takeUntil} from "rxjs/operators";
 import {DestroyService} from "../../../shared/services/destroy.service";
+import {DatepickerLocale} from "../../datepicker.module";
+import {IDatepickerLocale} from "../../models/IDatepickerLocale";
 
 @Component({
   selector: 'app-datepicker-month',
@@ -26,12 +28,13 @@ export class DatepickerMonthComponent implements OnInit {
   @Output()
   selectDay: EventEmitter<number> = new EventEmitter<number>();
 
-  public monthShortNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+  public get weekDaysMin(): string[] | undefined {
+    return this.localeConfig.weekDaysMin;
+  }
 
-  public monthNames = [
-    'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-  ];
+  public get months(): string[] | undefined {
+    return this.localeConfig.months
+  }
 
   public days: (DatepickerDate | null)[][] = [];
 
@@ -39,25 +42,21 @@ export class DatepickerMonthComponent implements OnInit {
 
   public currentSelectedDate!: DatepickerDate;
 
-  // @ts-ignore
-  get month(): string {
+  get month(): string | undefined {
     if (this.currentSelectedDate) {
-      return this.monthNames[this.currentSelectedDate.getMonth()];
+      return this.months && this.months[this.currentSelectedDate.getMonth()];
     }
+    return;
   }
 
   get year(): number {
     return this.currentSelectedDate.getYear();
   }
 
-  get currentDate(): number {
-    // todo создается новый экземпляр при каждом вызове
-    return this.datepickerService.currentDate.getDate();
-  }
-
   constructor(
     private datepickerService: DatepickerService,
-    private destroy$: DestroyService
+    private destroy$: DestroyService,
+    @Inject(DatepickerLocale) private localeConfig: IDatepickerLocale
   ) { }
 
   ngOnInit(): void {
