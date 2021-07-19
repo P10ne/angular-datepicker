@@ -1,18 +1,18 @@
-.months {
+.datepicker-months {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   height: 100%;
-}
-.item {
-  display: flex;
-  padding: 6px 8px;
-  margin: 6px 10px;
-  border-radius: 3px;
-  &:hover {
-    cursor: pointer;
-    background-color: #efefef;
+  &__item {
+    display: flex;
+    padding: 6px 8px;
+    margin: 6px 10px;
+    border-radius: 3px;
+    &:hover {
+      cursor: pointer;
+      background-color: #efefef;
+    }
   }
 }

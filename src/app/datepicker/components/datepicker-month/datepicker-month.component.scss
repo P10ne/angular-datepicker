@@ -1,40 +1,44 @@
-button {
+.btn {
   all: unset;
 }
-.header {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-  &__arrow {
-    margin: 0 3px;
+.datepicker-month {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    &__arrow {
+      margin: 0 3px;
+    }
   }
-}
-.main {
-  padding: 12px;
-}
-.row {
-  display: flex;
-}
-.cell {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 36px;
-  height: 30px;
-  font-weight: normal;
-  &_day {
-    cursor: pointer;
-    border-radius: 3px;
-    &:hover:not(&_selected) {
-      background-color: #efefef;
+  &-main {
+    padding: 12px;
+  }
+  &-table {
+    &__row {
+      display: flex;
     }
-    &_current {
-      border: 1px solid blue;
-    }
-    &_selected {
-      cursor: default;
-      background-color: lightskyblue;
+    &__cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 36px;
+      height: 30px;
+      font-weight: normal;
+      &_day {
+        cursor: pointer;
+        border-radius: 3px;
+        &:hover:not(&_selected) {
+          background-color: #efefef;
+        }
+        &_current {
+          border: 1px solid blue;
+        }
+        &_selected {
+          cursor: default;
+          background-color: lightskyblue;
+        }
+      }
     }
   }
 }
