@@ -1,6 +1,6 @@
 <div class="datepicker" #datepicker>
   <input type="text" class="datepicker__input" (blur)="onTouch($event)"
-     [ngModel]="value | date:'dd.MM.yyyy HH:mm:ss'"
+     [ngModel]="value | date: config.dateFormat + ' ' + config.timeFormat"
      (ngModelChange)="modelChangeHandler($event)"
      [mask]="'00.00.0000 00:00:00'"
      [dropSpecialCharacters]="false"

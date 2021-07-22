@@ -8,7 +8,8 @@ const localeEn: Required<IDatepickerLocaleConfig> = {
   ],
   weekDaysMin: [
     'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'
-  ]
+  ],
+  dateFormat: 'MM-dd-yyyy'
 }
 
 export default localeEn;

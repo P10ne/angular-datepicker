@@ -8,7 +8,8 @@ const localeRu: Required<IDatepickerLocaleConfig> = {
   ],
   weekDaysMin: [
     'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'
-  ]
+  ],
+  dateFormat: 'dd.MM.yyyy'
 }
 
 export default localeRu;
