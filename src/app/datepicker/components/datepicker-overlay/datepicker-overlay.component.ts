@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {DatepickerService} from "../../services/datepicker.service";
+import {DatepickerTime} from "../../models/DatepickerTime";
 
 enum EPickerType {
   Years,
   Months,
-  Days
+  Days,
+  Time
 }
 
 @Component({
@@ -25,9 +27,8 @@ export class DatepickerOverlayComponent implements OnInit {
   }
 
   public selectDayHandler(day: number): void {
-    this.datepickerService.setSelectedDate(
-      this.datepickerService.currentSelectedDate.setDay(day).getJSDate()
-    )
+    this.setCurrentSelectedDate(day);
+    this.goToSelectTime();
   }
 
 
@@ -51,6 +52,22 @@ export class DatepickerOverlayComponent implements OnInit {
     this.datepickerService.setCurrentSelectedDate(
       this.datepickerService.currentSelectedDate.setMonth(month).getJSDate()
     );
+  }
+
+  public setCurrentSelectedDate(date: number): void {
+    this.datepickerService.setCurrentSelectedDate(
+      this.datepickerService.currentSelectedDate.setDate(date).getJSDate()
+    )
+  }
+
+  public selectTimeHandler(time: DatepickerTime): void {
+    this.datepickerService.setSelectedDate(
+      this.datepickerService.currentSelectedDate.setTime(time).getJSDate()
+    )
+  }
+
+  public goToSelectTime(): void {
+    this.pickerType = EPickerType.Time;
   }
 
   public goToSelectDay(): void {

@@ -95,7 +95,7 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
   }
 
   modelChangeHandler(nextModelValue: string): void {
-    const date = new DatepickerDate(nextModelValue, 'DD.MM.YYYY', true);
+    const date = new DatepickerDate(nextModelValue, 'DD.MM.YYYY HH:mm:ss', true);
     if (date.isValid()) {
       this.value = date.getJSDate();
     }

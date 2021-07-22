@@ -1,5 +1,6 @@
 import * as dayjs from 'dayjs';
 import {Dayjs, OpUnitType, ConfigType, OptionType} from "dayjs";
+import {DatepickerTime} from "./DatepickerTime";
 
 export class DatepickerDate {
   private _date: Dayjs;
@@ -34,6 +35,23 @@ export class DatepickerDate {
 
   public setDay(v: number): DatepickerDate {
     return new DatepickerDate(this._date.weekday(v));
+  }
+
+  public setTime(time: DatepickerTime): DatepickerDate {
+    return new DatepickerDate(
+      this._date
+        .hour(time.getHours())
+        .minute(time.getMinutes())
+        .second(time.getSeconds())
+    )
+  }
+
+  public getTime(): DatepickerTime {
+    return new DatepickerTime(
+      this._date.hour(),
+      this._date.minute(),
+      this._date.second()
+    )
   }
 
   public isSame(date: Date, unit: OpUnitType) {
