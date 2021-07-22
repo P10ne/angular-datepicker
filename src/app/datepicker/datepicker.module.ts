@@ -15,6 +15,7 @@ import {IDatepickerLocaleConfig} from "./models/IDatepickerLocaleConfig";
 import {IDatepickerLocale} from "./models/IDatepickerLocale";
 import {locales} from "./configs/locales";
 import {TDatepickerWeekStart} from "./models/TDatepickerWeekStart";
+import { DatepickerTimeComponent } from './components/datepicker-time/datepicker-time.component';
 
 export const DatepickerLocale = new InjectionToken<IDatepickerLocale>('DatepickerLocale');
 
@@ -24,7 +25,8 @@ export const DatepickerLocale = new InjectionToken<IDatepickerLocale>('Datepicke
     DatepickerInputComponent,
     DatepickerMonthComponent,
     DatepickerMonthsComponent,
-    DatepickerYearsComponent
+    DatepickerYearsComponent,
+    DatepickerTimeComponent
   ],
   imports: [
     OverlayModule,

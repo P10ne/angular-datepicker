@@ -51,7 +51,7 @@
           [class.datepicker-month-table__cell_day_current]="isCurrentDate(date!)"
           [class.datepicker-month-table__cell_day_selected]="isSelectedDate(date!)"
           *ngFor="let date of weekMas"
-          (click)="!!date && selectMonthDay(date.getJSDate())"
+          (click)="!!date && selectMonthDay(date.getDate())"
         >
           {{date?.getDate()}}
         </td>

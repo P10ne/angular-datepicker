@@ -105,8 +105,8 @@ export class DatepickerMonthComponent implements OnInit {
     this.changeYear.emit(this.currentSelectedDate.getYear() - 1);
   }
 
-  public selectMonthDay(date: Date): void {
-    this.datepickerService.setSelectedDate(date);
+  public selectMonthDay(date: number): void {
+    this.selectDay.emit(date);
   }
 
 }
