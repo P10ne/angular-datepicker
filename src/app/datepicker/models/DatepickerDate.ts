@@ -77,4 +77,8 @@ export class DatepickerDate {
   constructor(config?: ConfigType, format?: OptionType, strict?: boolean) {
     this._date = dayjs(config, format, strict);
   }
+
+  public static getFormat(jsFormat: string): string {
+    return jsFormat.replace(/[dyh]/g, s => s.toUpperCase());
+  }
 }

@@ -9,7 +9,7 @@ type TConfig = IInitConfig & IPartialConfig;
 
 const defaultDatepickerConfig: IPartialConfig = {
   allowTime: false,
-  timeFormat: 'HH.mm.ss'
+  timeFormat: 'HH:mm:ss'
 }
 
 export class DatepickerConfig {

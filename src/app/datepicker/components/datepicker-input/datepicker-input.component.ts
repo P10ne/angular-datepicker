@@ -19,6 +19,7 @@ import {DatepickerDate} from "../../models/DatepickerDate";
 import { DatepickerConfig } from "../../models/DatepickerConfig";
 import { DatepickerLocale } from "../../datepicker.module";
 import { IDatepickerLocale } from "../../models/IDatepickerLocale";
+import { getMaskFormat } from "../../utils/getMaskFormat";
 
 @Component({
   selector: 'app-datepicker-input',
@@ -45,6 +46,20 @@ import { IDatepickerLocale } from "../../models/IDatepickerLocale";
   ]
 })
 export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlValueAccessor {
+  @Input()
+  set allowTime(v: boolean) {
+    this.config.allowTime = v;
+  }
+
+  get dateFormat(): string {
+    if (!this.config.allowTime) { return this.config.dateFormat }
+    return `${this.config.dateFormat} ${this.config.timeFormat}`;
+  }
+
+  get maskFormat(): string {
+    return getMaskFormat(this.dateFormat);
+  }
+
   @ViewChild('datepicker', {read: ElementRef}) private datepicker!: ElementRef;
 
   @ViewChild('btn', {read: ElementRef}) private btn!: ElementRef;
@@ -120,7 +135,8 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
   }
 
   modelChangeHandler(nextModelValue: string): void {
-    const date = new DatepickerDate(nextModelValue, 'DD.MM.YYYY HH:mm:ss', true);
+    // todo to optimize
+    const date = new DatepickerDate(nextModelValue, DatepickerDate.getFormat(this.dateFormat), true);
     if (date.isValid()) {
       this.value = date.getJSDate();
     }

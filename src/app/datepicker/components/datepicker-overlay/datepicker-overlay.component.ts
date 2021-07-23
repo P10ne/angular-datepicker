@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {DatepickerService} from "../../services/datepicker.service";
 import {DatepickerTime} from "../../models/DatepickerTime";
+import { DatepickerConfigToken } from "../../services/datepicker-overlay.service";
+import { DatepickerConfig } from "../../models/DatepickerConfig";
 
 enum EPickerType {
   Years,
@@ -20,15 +22,22 @@ export class DatepickerOverlayComponent implements OnInit {
   public pickerType: EPickerType = EPickerType.Days;
 
   constructor(
-    private datepickerService: DatepickerService
+    private datepickerService: DatepickerService,
+    @Inject(DatepickerConfigToken) private config: DatepickerConfig
   ) { }
 
   ngOnInit(): void {
   }
 
   public selectDayHandler(day: number): void {
-    this.setCurrentSelectedDate(day);
-    this.goToSelectTime();
+    if (this.config.allowTime) {
+      this.setCurrentSelectedDate(day);
+      this.goToSelectTime();
+    } else {
+      this.datepickerService.setSelectedDate(
+        this.datepickerService.currentSelectedDate.setDate(day).getJSDate()
+      )
+    }
   }
 
 
