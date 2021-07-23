@@ -51,6 +51,16 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
     this.config.allowTime = v;
   }
 
+  @Input()
+  set dateFormat(v: string) {
+    this.config.dateFormat = v;
+  }
+
+  @Input()
+  set timeFormat(v: string) {
+    this.config.timeFormat = v;
+  }
+
   get dateFormat(): string {
     if (!this.config.allowTime) { return this.config.dateFormat }
     return `${this.config.dateFormat} ${this.config.timeFormat}`;
