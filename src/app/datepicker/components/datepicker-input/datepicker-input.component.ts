@@ -1,11 +1,25 @@
-import {AfterViewInit, Component, ElementRef, forwardRef, OnInit, ViewChild} from '@angular/core';
-import {DatepickerOverlayService} from "../../services/datepicker-overlay.service";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  forwardRef,
+  Inject,
+  Injector,
+  Input,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import { DatepickerConfigToken, DatepickerOverlayService } from "../../services/datepicker-overlay.service";
 import {DatepickerService} from "../../services/datepicker.service";
 import {DatepickerOverlayRef} from "../../models/DatepickerOverlayRef";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {DestroyService} from "../../../shared/services/destroy.service";
 import {takeUntil} from "rxjs/operators";
 import {DatepickerDate} from "../../models/DatepickerDate";
+import { DatepickerConfig } from "../../models/DatepickerConfig";
+import { DatepickerLocale } from "../../datepicker.module";
+import { IDatepickerLocale } from "../../models/IDatepickerLocale";
+import { getMaskFormat } from "../../utils/getMaskFormat";
 
 @Component({
   selector: 'app-datepicker-input',
@@ -17,11 +31,45 @@ import {DatepickerDate} from "../../models/DatepickerDate";
       useExisting: forwardRef(() => DatepickerInputComponent),
       multi: true
     },
+    {
+      provide: DatepickerConfigToken,
+      useFactory: (injector: Injector) => {
+        const localeConfig: Required<IDatepickerLocale> = injector.get(DatepickerLocale);
+        return new DatepickerConfig({
+          dateFormat: localeConfig.dateFormat
+        })
+      },
+      deps: [Injector]
+    },
     DatepickerService,
     DestroyService
   ]
 })
 export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlValueAccessor {
+  @Input()
+  set allowTime(v: boolean) {
+    this.config.allowTime = v;
+  }
+
+  @Input()
+  set dateFormat(v: string) {
+    this.config.dateFormat = v;
+  }
+
+  @Input()
+  set timeFormat(v: string) {
+    this.config.timeFormat = v;
+  }
+
+  get dateFormat(): string {
+    if (!this.config.allowTime) { return this.config.dateFormat }
+    return `${this.config.dateFormat} ${this.config.timeFormat}`;
+  }
+
+  get maskFormat(): string {
+    return getMaskFormat(this.dateFormat);
+  }
+
   @ViewChild('datepicker', {read: ElementRef}) private datepicker!: ElementRef;
 
   @ViewChild('btn', {read: ElementRef}) private btn!: ElementRef;
@@ -33,12 +81,14 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
   constructor(
     private datepickerOverlayService: DatepickerOverlayService,
     private datepickerService: DatepickerService,
-    private destroy$: DestroyService
+    private destroy$: DestroyService,
+    @Inject(DatepickerConfigToken) public config: DatepickerConfig
   ) {}
   public openPicker(): void {
     this.layoutRef = this.datepickerOverlayService.open(
       this.datepicker,
-      this.datepickerService
+      this.datepickerService,
+      this.config
     );
   }
 
@@ -95,7 +145,8 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
   }
 
   modelChangeHandler(nextModelValue: string): void {
-    const date = new DatepickerDate(nextModelValue, 'DD.MM.YYYY HH:mm:ss', true);
+    // todo to optimize
+    const date = new DatepickerDate(nextModelValue, DatepickerDate.getFormat(this.dateFormat), true);
     if (date.isValid()) {
       this.value = date.getJSDate();
     }
