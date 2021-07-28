@@ -134,7 +134,7 @@
     "injectables": [
         {
             "name": "DatepickerDateService",
-            "id": "injectable-DatepickerDateService-044c9f91656f83937f0a34da95fc9659",
+            "id": "injectable-DatepickerDateService-7ed4a9dab60e029e6211892980f891b6",
             "file": "src/app/datepicker/services/datepicker-date.service.ts",
             "properties": [],
             "methods": [
@@ -176,7 +176,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import {Inject, Injectable} from '@angular/core';\r\nimport {DatepickerDate} from \"../models/DatepickerDate\";\r\nimport * as dayjs from 'dayjs';\r\nimport * as updateLocale from 'dayjs/plugin/updateLocale';\r\nimport * as weekday from 'dayjs/plugin/weekday';\r\nimport * as customParseFormat from 'dayjs/plugin/customParseFormat';\r\nimport {ConfigType} from \"dayjs\";\r\nimport {DatepickerLocale} from \"../datepicker.module\";\r\nimport {IDatepickerLocale} from \"../models/IDatepickerLocale\";\r\n\r\n@Injectable()\r\nexport class DatepickerDateService {\r\n  constructor(\r\n    @Inject(DatepickerLocale) private localeConfig: IDatepickerLocale\r\n  ) {\r\n    dayjs.extend(updateLocale);\r\n    dayjs.extend(weekday);\r\n    dayjs.extend(customParseFormat);\r\n    // Dayjs locale name does not change\r\n    dayjs.updateLocale('en', {\r\n      weekStart: this.localeConfig.weekStart\r\n    });\r\n  }\r\n\r\n  public create(config?: ConfigType): DatepickerDate {\r\n    return new DatepickerDate(config);\r\n  }\r\n}\r\n",
+            "sourceCode": "import {Inject, Injectable} from '@angular/core';\r\nimport {DatepickerDate} from \"../models/DatepickerDate\";\r\nimport * as dayjs from 'dayjs';\r\nimport * as updateLocale from 'dayjs/plugin/updateLocale';\r\nimport * as weekday from 'dayjs/plugin/weekday';\r\nimport * as customParseFormat from 'dayjs/plugin/customParseFormat';\r\nimport {ConfigType} from \"dayjs\";\r\nimport {DatepickerLocale} from \"../injection-tokens/DatepickerLocale\";\r\nimport {IDatepickerLocale} from \"../models/IDatepickerLocale\";\r\n\r\n@Injectable()\r\nexport class DatepickerDateService {\r\n  constructor(\r\n    @Inject(DatepickerLocale) private localeConfig: IDatepickerLocale\r\n  ) {\r\n    dayjs.extend(updateLocale);\r\n    dayjs.extend(weekday);\r\n    dayjs.extend(customParseFormat);\r\n    // Dayjs locale name does not change\r\n    dayjs.updateLocale('en', {\r\n      weekStart: this.localeConfig.weekStart\r\n    });\r\n  }\r\n\r\n  public create(config?: ConfigType): DatepickerDate {\r\n    return new DatepickerDate(config);\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -797,98 +797,6 @@
                 "line": 5
             },
             "extends": "Subject",
-            "type": "injectable"
-        },
-        {
-            "name": "SomeDeepService",
-            "id": "injectable-SomeDeepService-220aa71847ca81bcf2c83bdb0ee39cc7",
-            "file": "src/app/some/services/some-deep.service.ts",
-            "properties": [],
-            "methods": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "description": "",
-            "rawdescription": "\n",
-            "sourceCode": "import { Inject, Injectable } from '@angular/core';\nimport { SomeToken } from \"../some.module\";\n\n@Injectable()\nexport class SomeDeepService {\n\n  constructor(\n    @Inject(SomeToken) private someToken: string\n  ) {\n    console.log(this.someToken);\n  }\n}\n",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [
-                    {
-                        "name": "someToken",
-                        "type": "string",
-                        "deprecated": false,
-                        "deprecationMessage": ""
-                    }
-                ],
-                "line": 5,
-                "jsdoctags": [
-                    {
-                        "name": "someToken",
-                        "type": "string",
-                        "deprecated": false,
-                        "deprecationMessage": "",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
-            "type": "injectable"
-        },
-        {
-            "name": "SomeService",
-            "id": "injectable-SomeService-e5fa534459218578066c090a6a6ff464",
-            "file": "src/app/some/services/some.service.ts",
-            "properties": [],
-            "methods": [
-                {
-                    "name": "getData",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "string",
-                    "typeParameters": [],
-                    "line": 13,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "modifierKind": [
-                        122
-                    ]
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "description": "",
-            "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { SomeDeepService } from \"./some-deep.service\";\r\n\r\n@Injectable()\r\nexport class SomeService {\r\n\r\n  constructor(\r\n    private someDeepService: SomeDeepService\r\n  ) {\r\n    console.log(this.someDeepService);\r\n  }\r\n\r\n  public getData(): string {\r\n    return 'data from someService';\r\n  }\r\n}\r\n",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [
-                    {
-                        "name": "someDeepService",
-                        "type": "SomeDeepService",
-                        "deprecated": false,
-                        "deprecationMessage": ""
-                    }
-                ],
-                "line": 5,
-                "jsdoctags": [
-                    {
-                        "name": "someDeepService",
-                        "type": "SomeDeepService",
-                        "deprecated": false,
-                        "deprecationMessage": "",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
             "type": "injectable"
         }
     ],
@@ -1991,7 +1899,7 @@
         },
         {
             "name": "DatepickerInputComponent",
-            "id": "component-DatepickerInputComponent-11eb445121ab9195f028b4d308602e53",
+            "id": "component-DatepickerInputComponent-05919409f5cbf6d7bd344f71735c5615",
             "file": "src/app/datepicker/components/datepicker-input/datepicker-input.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2327,7 +2235,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {\r\n  AfterViewInit,\r\n  Component,\r\n  ElementRef,\r\n  forwardRef,\r\n  Inject,\r\n  Injector,\r\n  Input,\r\n  OnInit,\r\n  ViewChild\r\n} from '@angular/core';\r\nimport { DatepickerConfigToken, DatepickerOverlayService } from \"../../services/datepicker-overlay.service\";\r\nimport {DatepickerService} from \"../../services/datepicker.service\";\r\nimport {DatepickerOverlayRef} from \"../../models/DatepickerOverlayRef\";\r\nimport {ControlValueAccessor, NG_VALUE_ACCESSOR} from \"@angular/forms\";\r\nimport {DestroyService} from \"../../../shared/services/destroy.service\";\r\nimport {takeUntil} from \"rxjs/operators\";\r\nimport {DatepickerDate} from \"../../models/DatepickerDate\";\r\nimport { DatepickerConfig } from \"../../models/DatepickerConfig\";\r\nimport { DatepickerLocale } from \"../../datepicker.module\";\r\nimport { IDatepickerLocale } from \"../../models/IDatepickerLocale\";\r\nimport { getMaskFormat } from \"../../utils/getMaskFormat\";\r\n\r\n@Component({\r\n  selector: 'app-datepicker-input',\r\n  templateUrl: './datepicker-input.component.html',\r\n  styleUrls: ['./datepicker-input.component.scss'],\r\n  providers: [\r\n    {\r\n      provide: NG_VALUE_ACCESSOR,\r\n      useExisting: forwardRef(() => DatepickerInputComponent),\r\n      multi: true\r\n    },\r\n    {\r\n      provide: DatepickerConfigToken,\r\n      useFactory: (injector: Injector) => {\r\n        const localeConfig: Required<IDatepickerLocale> = injector.get(DatepickerLocale);\r\n        return new DatepickerConfig({\r\n          dateFormat: localeConfig.dateFormat\r\n        })\r\n      },\r\n      deps: [Injector]\r\n    },\r\n    DatepickerService,\r\n    DestroyService\r\n  ]\r\n})\r\nexport class DatepickerInputComponent implements OnInit, AfterViewInit, ControlValueAccessor {\r\n  @Input()\r\n  set allowTime(v: boolean) {\r\n    this.config.allowTime = v;\r\n  }\r\n\r\n  @Input()\r\n  set dateFormat(v: string) {\r\n    this.config.dateFormat = v;\r\n  }\r\n\r\n  @Input()\r\n  set timeFormat(v: string) {\r\n    this.config.timeFormat = v;\r\n  }\r\n\r\n  get dateFormat(): string {\r\n    if (!this.config.allowTime) { return this.config.dateFormat }\r\n    return `${this.config.dateFormat} ${this.config.timeFormat}`;\r\n  }\r\n\r\n  get maskFormat(): string {\r\n    return getMaskFormat(this.dateFormat);\r\n  }\r\n\r\n  @ViewChild('datepicker', {read: ElementRef}) private datepicker!: ElementRef;\r\n\r\n  @ViewChild('btn', {read: ElementRef}) private btn!: ElementRef;\r\n\r\n  public inputValue: Date | null = null;\r\n\r\n  private layoutRef: DatepickerOverlayRef | undefined;\r\n\r\n  constructor(\r\n    private datepickerOverlayService: DatepickerOverlayService,\r\n    private datepickerService: DatepickerService,\r\n    private destroy$: DestroyService,\r\n    @Inject(DatepickerConfigToken) public config: DatepickerConfig\r\n  ) {}\r\n  public openPicker(): void {\r\n    this.layoutRef = this.datepickerOverlayService.open(\r\n      this.datepicker,\r\n      this.datepickerService,\r\n      this.config\r\n    );\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    this.subscribeToSelectedDateChange();\r\n  }\r\n\r\n  ngAfterViewInit(): void {\r\n    setTimeout(() => this.initDate());\r\n  }\r\n\r\n  private subscribeToSelectedDateChange(): void {\r\n    this.datepickerService.selectedDate$.pipe(\r\n      takeUntil(this.destroy$)\r\n    ).subscribe(date => {\r\n      if (date) {\r\n        this.value = date.getJSDate();\r\n        this.layoutRef?.close();\r\n      }\r\n    });\r\n  }\r\n\r\n  private initDate(): void {\r\n    if (this.inputValue) {\r\n      this.datepickerService.setSelectedDate(this.inputValue);\r\n      this.datepickerService.setCurrentSelectedDate(this.inputValue);\r\n    }\r\n  }\r\n\r\n  // ControlValueAccessor implementation\r\n  onChange: any = () => {}\r\n  onTouch: any = () => {}\r\n\r\n  set value(val: Date | null) {\r\n    this.inputValue = val;\r\n    this.onChange(val);\r\n    this.onTouch();\r\n  }\r\n\r\n  get value(): Date | null {\r\n    return this.inputValue;\r\n  }\r\n\r\n  registerOnChange(fn: any): void {\r\n    this.onChange = fn;\r\n  }\r\n\r\n  registerOnTouched(fn: any): void {\r\n    this.onTouch = fn;\r\n  }\r\n\r\n  writeValue(obj: Date | null): void {\r\n    this.value = obj;\r\n  }\r\n\r\n  modelChangeHandler(nextModelValue: string): void {\r\n    // todo to optimize\r\n    const date = new DatepickerDate(nextModelValue, DatepickerDate.getFormat(this.dateFormat), true);\r\n    if (date.isValid()) {\r\n      this.value = date.getJSDate();\r\n    }\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import {\r\n  AfterViewInit,\r\n  Component,\r\n  ElementRef,\r\n  forwardRef,\r\n  Inject,\r\n  Injector,\r\n  Input,\r\n  OnInit,\r\n  ViewChild\r\n} from '@angular/core';\r\nimport { DatepickerConfigToken, DatepickerOverlayService } from \"../../services/datepicker-overlay.service\";\r\nimport {DatepickerService} from \"../../services/datepicker.service\";\r\nimport {DatepickerOverlayRef} from \"../../models/DatepickerOverlayRef\";\r\nimport {ControlValueAccessor, NG_VALUE_ACCESSOR} from \"@angular/forms\";\r\nimport {DestroyService} from \"../../../shared/services/destroy.service\";\r\nimport {takeUntil} from \"rxjs/operators\";\r\nimport {DatepickerDate} from \"../../models/DatepickerDate\";\r\nimport { DatepickerConfig } from \"../../models/DatepickerConfig\";\r\nimport { DatepickerLocale } from \"../../injection-tokens/DatepickerLocale\";\r\nimport { IDatepickerLocale } from \"../../models/IDatepickerLocale\";\r\nimport { getMaskFormat } from \"../../utils/getMaskFormat\";\r\n\r\n@Component({\r\n  selector: 'app-datepicker-input',\r\n  templateUrl: './datepicker-input.component.html',\r\n  styleUrls: ['./datepicker-input.component.scss'],\r\n  providers: [\r\n    {\r\n      provide: NG_VALUE_ACCESSOR,\r\n      useExisting: forwardRef(() => DatepickerInputComponent),\r\n      multi: true\r\n    },\r\n    {\r\n      provide: DatepickerConfigToken,\r\n      useFactory: (injector: Injector) => {\r\n        const localeConfig: Required<IDatepickerLocale> = injector.get(DatepickerLocale);\r\n        return new DatepickerConfig({\r\n          dateFormat: localeConfig.dateFormat\r\n        })\r\n      },\r\n      deps: [Injector]\r\n    },\r\n    DatepickerService,\r\n    DestroyService\r\n  ]\r\n})\r\nexport class DatepickerInputComponent implements OnInit, AfterViewInit, ControlValueAccessor {\r\n  @Input()\r\n  set allowTime(v: boolean) {\r\n    this.config.allowTime = v;\r\n  }\r\n\r\n  @Input()\r\n  set dateFormat(v: string) {\r\n    this.config.dateFormat = v;\r\n  }\r\n\r\n  @Input()\r\n  set timeFormat(v: string) {\r\n    this.config.timeFormat = v;\r\n  }\r\n\r\n  get dateFormat(): string {\r\n    if (!this.config.allowTime) { return this.config.dateFormat }\r\n    return `${this.config.dateFormat} ${this.config.timeFormat}`;\r\n  }\r\n\r\n  get maskFormat(): string {\r\n    return getMaskFormat(this.dateFormat);\r\n  }\r\n\r\n  @ViewChild('datepicker', {read: ElementRef}) private datepicker!: ElementRef;\r\n\r\n  @ViewChild('btn', {read: ElementRef}) private btn!: ElementRef;\r\n\r\n  public inputValue: Date | null = null;\r\n\r\n  private layoutRef: DatepickerOverlayRef | undefined;\r\n\r\n  constructor(\r\n    private datepickerOverlayService: DatepickerOverlayService,\r\n    private datepickerService: DatepickerService,\r\n    private destroy$: DestroyService,\r\n    @Inject(DatepickerConfigToken) public config: DatepickerConfig\r\n  ) {}\r\n  public openPicker(): void {\r\n    this.layoutRef = this.datepickerOverlayService.open(\r\n      this.datepicker,\r\n      this.datepickerService,\r\n      this.config\r\n    );\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    this.subscribeToSelectedDateChange();\r\n  }\r\n\r\n  ngAfterViewInit(): void {\r\n    setTimeout(() => this.initDate());\r\n  }\r\n\r\n  private subscribeToSelectedDateChange(): void {\r\n    this.datepickerService.selectedDate$.pipe(\r\n      takeUntil(this.destroy$)\r\n    ).subscribe(date => {\r\n      if (date) {\r\n        this.value = date.getJSDate();\r\n        this.layoutRef?.close();\r\n      }\r\n    });\r\n  }\r\n\r\n  private initDate(): void {\r\n    if (this.inputValue) {\r\n      this.datepickerService.setSelectedDate(this.inputValue);\r\n      this.datepickerService.setCurrentSelectedDate(this.inputValue);\r\n    }\r\n  }\r\n\r\n  // ControlValueAccessor implementation\r\n  onChange: any = () => {}\r\n  onTouch: any = () => {}\r\n\r\n  set value(val: Date | null) {\r\n    this.inputValue = val;\r\n    this.onChange(val);\r\n    this.onTouch();\r\n  }\r\n\r\n  get value(): Date | null {\r\n    return this.inputValue;\r\n  }\r\n\r\n  registerOnChange(fn: any): void {\r\n    this.onChange = fn;\r\n  }\r\n\r\n  registerOnTouched(fn: any): void {\r\n    this.onTouch = fn;\r\n  }\r\n\r\n  writeValue(obj: Date | null): void {\r\n    this.value = obj;\r\n  }\r\n\r\n  modelChangeHandler(nextModelValue: string): void {\r\n    // todo to optimize\r\n    const date = new DatepickerDate(nextModelValue, DatepickerDate.getFormat(this.dateFormat), true);\r\n    if (date.isValid()) {\r\n      this.value = date.getJSDate();\r\n    }\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2559,7 +2467,7 @@
         },
         {
             "name": "DatepickerMonthComponent",
-            "id": "component-DatepickerMonthComponent-ef5458684d174f228eb00e232c0bd780",
+            "id": "component-DatepickerMonthComponent-bd5b459dc294771a2f471a354ce91514",
             "file": "src/app/datepicker/components/datepicker-month/datepicker-month.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2838,7 +2746,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';\r\nimport {DatepickerService} from \"../../services/datepicker.service\";\r\nimport {DatepickerDate} from \"../../models/DatepickerDate\";\r\nimport {takeUntil} from \"rxjs/operators\";\r\nimport {DestroyService} from \"../../../shared/services/destroy.service\";\r\nimport {DatepickerLocale} from \"../../datepicker.module\";\r\nimport {IDatepickerLocale} from \"../../models/IDatepickerLocale\";\r\n\r\n@Component({\r\n  selector: 'app-datepicker-month',\r\n  templateUrl: './datepicker-month.component.html',\r\n  styleUrls: ['./datepicker-month.component.scss'],\r\n  providers: [DestroyService]\r\n})\r\nexport class DatepickerMonthComponent implements OnInit {\r\n  @Output()\r\n  changeMonth: EventEmitter<number> = new EventEmitter<number>();\r\n\r\n  @Output()\r\n  changeYear: EventEmitter<number> = new EventEmitter<number>();\r\n\r\n  @Output()\r\n  monthClick: EventEmitter<void> = new EventEmitter<void>();\r\n\r\n  @Output()\r\n  yearClick: EventEmitter<void> = new EventEmitter<void>();\r\n\r\n  @Output()\r\n  selectDay: EventEmitter<number> = new EventEmitter<number>();\r\n\r\n  public get weekDaysMin(): string[] | undefined {\r\n    return this.localeConfig.weekDaysMin;\r\n  }\r\n\r\n  public get months(): string[] | undefined {\r\n    return this.localeConfig.months\r\n  }\r\n\r\n  public days: (DatepickerDate | null)[][] = [];\r\n\r\n  public selectedDate!: DatepickerDate | null;\r\n\r\n  public currentSelectedDate!: DatepickerDate;\r\n\r\n  get month(): string | undefined {\r\n    if (this.currentSelectedDate) {\r\n      return this.months && this.months[this.currentSelectedDate.getMonth()];\r\n    }\r\n    return;\r\n  }\r\n\r\n  get year(): number {\r\n    return this.currentSelectedDate.getYear();\r\n  }\r\n\r\n  constructor(\r\n    private datepickerService: DatepickerService,\r\n    private destroy$: DestroyService,\r\n    @Inject(DatepickerLocale) private localeConfig: IDatepickerLocale\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n    this.subscribeToDateChanged();\r\n  }\r\n\r\n  public isCurrentDate(date: DatepickerDate): boolean {\r\n    if (!date) return false;\r\n    const currentDate = this.datepickerService.currentDate;\r\n    return date.isSame(currentDate.getJSDate(), 'day');\r\n  }\r\n\r\n  public isSelectedDate(date: DatepickerDate): boolean {\r\n    if (!date || !this.selectedDate) return false;\r\n    return date.isSame(this.selectedDate.getJSDate(), 'day');\r\n  }\r\n\r\n  private subscribeToDateChanged(): void {\r\n    this.datepickerService.currentSelectedDate$.pipe(\r\n      takeUntil(this.destroy$)\r\n    ).subscribe((selectedDate) => {\r\n      this.currentSelectedDate = selectedDate;\r\n      this.days = this.datepickerService.getMonthDates(selectedDate.getJSDate());\r\n    });\r\n\r\n    this.datepickerService.selectedDate$.pipe(\r\n      takeUntil(this.destroy$)\r\n    ).subscribe(selectedDate => {\r\n      this.selectedDate = selectedDate;\r\n    })\r\n  }\r\n\r\n  public nextMonth(): void {\r\n    this.changeMonth.emit(this.currentSelectedDate.getMonth() + 1);\r\n  }\r\n\r\n  public prevMonth(): void {\r\n    this.changeMonth.emit(this.currentSelectedDate.getMonth() - 1);\r\n  }\r\n\r\n  public nextYear(): void {\r\n    this.changeYear.emit(this.currentSelectedDate.getYear() + 1);\r\n  }\r\n\r\n  public prevYear(): void {\r\n    this.changeYear.emit(this.currentSelectedDate.getYear() - 1);\r\n  }\r\n\r\n  public selectMonthDay(date: number): void {\r\n    this.selectDay.emit(date);\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';\r\nimport {DatepickerService} from \"../../services/datepicker.service\";\r\nimport {DatepickerDate} from \"../../models/DatepickerDate\";\r\nimport {takeUntil} from \"rxjs/operators\";\r\nimport {DestroyService} from \"../../../shared/services/destroy.service\";\r\nimport {DatepickerLocale} from \"../../injection-tokens/DatepickerLocale\";\r\nimport {IDatepickerLocale} from \"../../models/IDatepickerLocale\";\r\n\r\n@Component({\r\n  selector: 'app-datepicker-month',\r\n  templateUrl: './datepicker-month.component.html',\r\n  styleUrls: ['./datepicker-month.component.scss'],\r\n  providers: [DestroyService]\r\n})\r\nexport class DatepickerMonthComponent implements OnInit {\r\n  @Output()\r\n  changeMonth: EventEmitter<number> = new EventEmitter<number>();\r\n\r\n  @Output()\r\n  changeYear: EventEmitter<number> = new EventEmitter<number>();\r\n\r\n  @Output()\r\n  monthClick: EventEmitter<void> = new EventEmitter<void>();\r\n\r\n  @Output()\r\n  yearClick: EventEmitter<void> = new EventEmitter<void>();\r\n\r\n  @Output()\r\n  selectDay: EventEmitter<number> = new EventEmitter<number>();\r\n\r\n  public get weekDaysMin(): string[] | undefined {\r\n    return this.localeConfig.weekDaysMin;\r\n  }\r\n\r\n  public get months(): string[] | undefined {\r\n    return this.localeConfig.months\r\n  }\r\n\r\n  public days: (DatepickerDate | null)[][] = [];\r\n\r\n  public selectedDate!: DatepickerDate | null;\r\n\r\n  public currentSelectedDate!: DatepickerDate;\r\n\r\n  get month(): string | undefined {\r\n    if (this.currentSelectedDate) {\r\n      return this.months && this.months[this.currentSelectedDate.getMonth()];\r\n    }\r\n    return;\r\n  }\r\n\r\n  get year(): number {\r\n    return this.currentSelectedDate.getYear();\r\n  }\r\n\r\n  constructor(\r\n    private datepickerService: DatepickerService,\r\n    private destroy$: DestroyService,\r\n    @Inject(DatepickerLocale) private localeConfig: IDatepickerLocale\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n    this.subscribeToDateChanged();\r\n  }\r\n\r\n  public isCurrentDate(date: DatepickerDate): boolean {\r\n    if (!date) return false;\r\n    const currentDate = this.datepickerService.currentDate;\r\n    return date.isSame(currentDate.getJSDate(), 'day');\r\n  }\r\n\r\n  public isSelectedDate(date: DatepickerDate): boolean {\r\n    if (!date || !this.selectedDate) return false;\r\n    return date.isSame(this.selectedDate.getJSDate(), 'day');\r\n  }\r\n\r\n  private subscribeToDateChanged(): void {\r\n    this.datepickerService.currentSelectedDate$.pipe(\r\n      takeUntil(this.destroy$)\r\n    ).subscribe((selectedDate) => {\r\n      this.currentSelectedDate = selectedDate;\r\n      this.days = this.datepickerService.getMonthDates(selectedDate.getJSDate());\r\n    });\r\n\r\n    this.datepickerService.selectedDate$.pipe(\r\n      takeUntil(this.destroy$)\r\n    ).subscribe(selectedDate => {\r\n      this.selectedDate = selectedDate;\r\n    })\r\n  }\r\n\r\n  public nextMonth(): void {\r\n    this.changeMonth.emit(this.currentSelectedDate.getMonth() + 1);\r\n  }\r\n\r\n  public prevMonth(): void {\r\n    this.changeMonth.emit(this.currentSelectedDate.getMonth() - 1);\r\n  }\r\n\r\n  public nextYear(): void {\r\n    this.changeYear.emit(this.currentSelectedDate.getYear() + 1);\r\n  }\r\n\r\n  public prevYear(): void {\r\n    this.changeYear.emit(this.currentSelectedDate.getYear() - 1);\r\n  }\r\n\r\n  public selectMonthDay(date: number): void {\r\n    this.selectDay.emit(date);\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -2948,7 +2856,7 @@
         },
         {
             "name": "DatepickerMonthsComponent",
-            "id": "component-DatepickerMonthsComponent-d78c635d9fcd01551afb1f4a107d6980",
+            "id": "component-DatepickerMonthsComponent-06bfeacbd2eac3a61b256f0e2d366b0b",
             "file": "src/app/datepicker/components/datepicker-months/datepicker-months.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3026,7 +2934,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';\r\nimport {DatepickerLocale} from \"../../datepicker.module\";\r\nimport {IDatepickerLocale} from \"../../models/IDatepickerLocale\";\r\n\r\n@Component({\r\n  selector: 'app-datepicker-months',\r\n  templateUrl: './datepicker-months.component.html',\r\n  styleUrls: ['./datepicker-months.component.scss']\r\n})\r\nexport class DatepickerMonthsComponent implements OnInit {\r\n  @Output()\r\n  monthSelected: EventEmitter<number> = new EventEmitter<number>();\r\n\r\n  public get months(): string[] | undefined {\r\n    return this.localeConfig.months;\r\n  }\r\n\r\n  constructor(\r\n    @Inject(DatepickerLocale) private localeConfig: IDatepickerLocale\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n  }\r\n\r\n  public selectMonth(month: number): void {\r\n    this.monthSelected.emit(month);\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';\r\nimport {DatepickerLocale} from \"../../injection-tokens/DatepickerLocale\";\r\nimport {IDatepickerLocale} from \"../../models/IDatepickerLocale\";\r\n\r\n@Component({\r\n  selector: 'app-datepicker-months',\r\n  templateUrl: './datepicker-months.component.html',\r\n  styleUrls: ['./datepicker-months.component.scss']\r\n})\r\nexport class DatepickerMonthsComponent implements OnInit {\r\n  @Output()\r\n  monthSelected: EventEmitter<number> = new EventEmitter<number>();\r\n\r\n  public get months(): string[] | undefined {\r\n    return this.localeConfig.months;\r\n  }\r\n\r\n  constructor(\r\n    @Inject(DatepickerLocale) private localeConfig: IDatepickerLocale\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n  }\r\n\r\n  public selectMonth(month: number): void {\r\n    this.monthSelected.emit(month);\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -4071,161 +3979,6 @@
             "stylesData": ""
         },
         {
-            "name": "Some1Component",
-            "id": "component-Some1Component-d46830371921fcd5e8047faee7f6649c",
-            "file": "src/app/some/components/some1/some1.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "app-some1",
-            "styleUrls": [
-                "./some1.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./some1.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 12,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-some1',\r\n  templateUrl: './some1.component.html',\r\n  styleUrls: ['./some1.component.scss']\r\n})\r\nexport class Some1Component implements OnInit {\r\n\r\n  constructor() { }\r\n\r\n  ngOnInit(): void {\r\n  }\r\n\r\n}\r\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./some1.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [],
-                "line": 8
-            },
-            "implements": [
-                "OnInit"
-            ],
-            "templateData": "<p>some1 works!</p>\r\n"
-        },
-        {
-            "name": "SomeComponent",
-            "id": "component-SomeComponent-68a7dc319f200969d3dc6abf9f5ccabe",
-            "file": "src/app/some/components/some/some.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [
-                {
-                    "name": "SomeService"
-                }
-            ],
-            "selector": "app-some",
-            "styleUrls": [
-                "./some.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./some.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [
-                {
-                    "name": "text",
-                    "defaultValue": "'anytext'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 12,
-                    "type": "string"
-                }
-            ],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "ngOnInit",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 18,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\r\nimport { SomeService } from \"../../services/some.service\";\r\n\r\n@Component({\r\n  selector: 'app-some',\r\n  templateUrl: './some.component.html',\r\n  styleUrls: ['./some.component.scss'],\r\n  providers: [SomeService]\r\n})\r\nexport class SomeComponent implements OnInit {\r\n  @Input()\r\n  text: string = 'anytext';\r\n\r\n  constructor(\r\n    private someService: SomeService\r\n  ) { }\r\n\r\n  ngOnInit(): void {\r\n    console.log(this.someService?.getData());\r\n  }\r\n\r\n}\r\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "",
-                    "styleUrl": "./some.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [
-                    {
-                        "name": "someService",
-                        "type": "SomeService",
-                        "deprecated": false,
-                        "deprecationMessage": ""
-                    }
-                ],
-                "line": 12,
-                "jsdoctags": [
-                    {
-                        "name": "someService",
-                        "type": "SomeService",
-                        "deprecated": false,
-                        "deprecationMessage": "",
-                        "tagName": {
-                            "text": "param"
-                        }
-                    }
-                ]
-            },
-            "implements": [
-                "OnInit"
-            ],
-            "templateData": "some component works {{text}}\r\n<app-some1></app-some1>\r\n"
-        },
-        {
             "name": "SvgIconComponent",
             "id": "component-SvgIconComponent-31dfb4f9bff76abedae828b9ad2edec8",
             "file": "src/app/svg-icons/components/svg-icon/svg-icon.component.ts",
@@ -4347,7 +4100,7 @@
         },
         {
             "name": "DatepickerModule",
-            "id": "module-DatepickerModule-197e0c239b03dfdd8c9c13b1538170ea",
+            "id": "module-DatepickerModule-4891b2ddccf03780dabafc1928a35895",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
@@ -4367,7 +4120,7 @@
                     "optional": false,
                     "returnType": "ModuleWithProviders<DatepickerModule>",
                     "typeParameters": [],
-                    "line": 50,
+                    "line": 49,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -4387,7 +4140,7 @@
                     ]
                 }
             ],
-            "sourceCode": "import {InjectionToken, ModuleWithProviders, NgModule} from '@angular/core';\r\nimport { OverlayModule } from \"@angular/cdk/overlay\";\r\nimport { DatepickerOverlayComponent } from \"./components/datepicker-overlay/datepicker-overlay.component\";\r\nimport { DatepickerInputComponent } from './components/datepicker-input/datepicker-input.component';\r\nimport { DatepickerMonthComponent } from './components/datepicker-month/datepicker-month.component';\r\nimport {DatepickerOverlayService} from \"./services/datepicker-overlay.service\";\r\nimport { DatepickerMonthsComponent } from './components/datepicker-months/datepicker-months.component';\r\nimport { DatepickerYearsComponent } from './components/datepicker-years/datepicker-years.component';\r\nimport {FormsModule} from \"@angular/forms\";\r\nimport {DatepickerDateService} from \"./services/datepicker-date.service\";\r\nimport {SharedModule} from \"../shared/shared.module\";\r\nimport { NgxMaskModule } from 'ngx-mask'\r\nimport {SvgIconsModule} from \"../svg-icons/svg-icons.module\";\r\nimport {IDatepickerLocaleConfig} from \"./models/IDatepickerLocaleConfig\";\r\nimport {IDatepickerLocale} from \"./models/IDatepickerLocale\";\r\nimport {locales} from \"./configs/locales\";\r\nimport {TDatepickerWeekStart} from \"./models/TDatepickerWeekStart\";\r\nimport { DatepickerTimeComponent } from './components/datepicker-time/datepicker-time.component';\r\n\r\nexport const DatepickerLocale = new InjectionToken<Required<IDatepickerLocale>>('DatepickerLocale');\r\n\r\n@NgModule({\r\n  declarations: [\r\n    DatepickerOverlayComponent,\r\n    DatepickerInputComponent,\r\n    DatepickerMonthComponent,\r\n    DatepickerMonthsComponent,\r\n    DatepickerYearsComponent,\r\n    DatepickerTimeComponent\r\n  ],\r\n  imports: [\r\n    OverlayModule,\r\n    FormsModule,\r\n    SharedModule,\r\n    NgxMaskModule.forRoot(),\r\n    SvgIconsModule\r\n  ],\r\n  exports: [\r\n    DatepickerInputComponent\r\n  ],\r\n  entryComponents: [\r\n    DatepickerOverlayComponent\r\n  ],\r\n  providers: [\r\n    DatepickerOverlayService,\r\n    DatepickerDateService\r\n  ]\r\n})\r\nexport class DatepickerModule {\r\n  public static forRoot(locale?: IDatepickerLocale): ModuleWithProviders<DatepickerModule> {\r\n    const DEFAULT_LOCALE = 'ru';\r\n    const config: Required<IDatepickerLocaleConfig> = locales[locale ? locale.name : DEFAULT_LOCALE];\r\n    if (!config) throw new Error(`Locale ${locale?.name} was not found`);\r\n    const datepickerLocale: Required<IDatepickerLocale> = {\r\n      name: DEFAULT_LOCALE,\r\n      ...config,\r\n    };\r\n    datepickerLocale.weekDaysMin = getWeekNamesByWeekStart(datepickerLocale.weekDaysMin, datepickerLocale.weekStart);\r\n    return {\r\n      ngModule: DatepickerModule,\r\n      providers: [\r\n        {\r\n          provide: DatepickerLocale,\r\n          useValue: datepickerLocale\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}\r\n\r\nfunction getWeekNamesByWeekStart(weekNames: string[], weekStart: TDatepickerWeekStart): string[] {\r\n  if (weekStart === 0) return weekNames;\r\n  const [sunday, ...days] = weekNames;\r\n  return [...days, sunday];\r\n}\r\n",
+            "sourceCode": "import {InjectionToken, ModuleWithProviders, NgModule} from '@angular/core';\r\nimport { OverlayModule } from \"@angular/cdk/overlay\";\r\nimport { DatepickerOverlayComponent } from \"./components/datepicker-overlay/datepicker-overlay.component\";\r\nimport { DatepickerInputComponent } from './components/datepicker-input/datepicker-input.component';\r\nimport { DatepickerMonthComponent } from './components/datepicker-month/datepicker-month.component';\r\nimport {DatepickerOverlayService} from \"./services/datepicker-overlay.service\";\r\nimport { DatepickerMonthsComponent } from './components/datepicker-months/datepicker-months.component';\r\nimport { DatepickerYearsComponent } from './components/datepicker-years/datepicker-years.component';\r\nimport {FormsModule} from \"@angular/forms\";\r\nimport {DatepickerDateService} from \"./services/datepicker-date.service\";\r\nimport {SharedModule} from \"../shared/shared.module\";\r\nimport { NgxMaskModule } from 'ngx-mask'\r\nimport {SvgIconsModule} from \"../svg-icons/svg-icons.module\";\r\nimport {IDatepickerLocaleConfig} from \"./models/IDatepickerLocaleConfig\";\r\nimport {IDatepickerLocale} from \"./models/IDatepickerLocale\";\r\nimport {locales} from \"./configs/locales\";\r\nimport {TDatepickerWeekStart} from \"./models/TDatepickerWeekStart\";\r\nimport { DatepickerTimeComponent } from './components/datepicker-time/datepicker-time.component';\r\nimport { DatepickerLocale } from \"./injection-tokens/DatepickerLocale\";\r\n\r\n@NgModule({\r\n  declarations: [\r\n    DatepickerOverlayComponent,\r\n    DatepickerInputComponent,\r\n    DatepickerMonthComponent,\r\n    DatepickerMonthsComponent,\r\n    DatepickerYearsComponent,\r\n    DatepickerTimeComponent\r\n  ],\r\n  imports: [\r\n    OverlayModule,\r\n    FormsModule,\r\n    SharedModule,\r\n    NgxMaskModule.forRoot(),\r\n    SvgIconsModule\r\n  ],\r\n  exports: [\r\n    DatepickerInputComponent\r\n  ],\r\n  entryComponents: [\r\n    DatepickerOverlayComponent\r\n  ],\r\n  providers: [\r\n    DatepickerOverlayService,\r\n    DatepickerDateService\r\n  ]\r\n})\r\nexport class DatepickerModule {\r\n  public static forRoot(locale?: IDatepickerLocale): ModuleWithProviders<DatepickerModule> {\r\n    const DEFAULT_LOCALE = 'ru';\r\n    const config: Required<IDatepickerLocaleConfig> = locales[locale ? locale.name : DEFAULT_LOCALE];\r\n    if (!config) throw new Error(`Locale ${locale?.name} was not found`);\r\n    const datepickerLocale: Required<IDatepickerLocale> = {\r\n      name: DEFAULT_LOCALE,\r\n      ...config,\r\n    };\r\n    datepickerLocale.weekDaysMin = getWeekNamesByWeekStart(datepickerLocale.weekDaysMin, datepickerLocale.weekStart);\r\n    return {\r\n      ngModule: DatepickerModule,\r\n      providers: [\r\n        {\r\n          provide: DatepickerLocale,\r\n          useValue: datepickerLocale\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}\r\n\r\nfunction getWeekNamesByWeekStart(weekNames: string[], weekStart: TDatepickerWeekStart): string[] {\r\n  if (weekStart === 0) return weekNames;\r\n  const [sunday, ...days] = weekNames;\r\n  return [...days, sunday];\r\n}\r\n",
             "children": [
                 {
                     "type": "providers",
@@ -4493,53 +4246,6 @@
             ]
         },
         {
-            "name": "SomeModule",
-            "id": "module-SomeModule-ad801ab6dbc4fe666156b56df82e1466",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "src/app/some/some.module.ts",
-            "methods": [],
-            "sourceCode": "import { InjectionToken, NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { SomeComponent } from './components/some/some.component';\r\nimport { SomeService } from \"./services/some.service\";\r\nimport { Some1Component } from './components/some1/some1.component';\r\nimport { SomeDeepService } from \"./services/some-deep.service\";\r\n\r\nexport const SomeToken = new InjectionToken<string>('SomeToken');\r\n\r\n@NgModule({\r\n  declarations: [\r\n    SomeComponent,\r\n    Some1Component\r\n  ],\r\n  imports: [\r\n    CommonModule\r\n  ],\r\n  providers: [\r\n    SomeDeepService,\r\n    {\r\n      provide: SomeToken,\r\n      useValue: 'someTokenString'\r\n    }\r\n  ]\r\n})\r\nexport class SomeModule { }\r\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": [
-                        {
-                            "name": "SomeDeepService"
-                        }
-                    ]
-                },
-                {
-                    "type": "declarations",
-                    "elements": [
-                        {
-                            "name": "Some1Component"
-                        },
-                        {
-                            "name": "SomeComponent"
-                        }
-                    ]
-                },
-                {
-                    "type": "imports",
-                    "elements": []
-                },
-                {
-                    "type": "exports",
-                    "elements": []
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        },
-        {
             "name": "SvgIconsModule",
             "id": "module-SvgIconsModule-7e7f0d32dee5b188745604cde8a128c2",
             "description": "",
@@ -4620,7 +4326,7 @@
                 "name": "DatepickerLocale",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/datepicker/datepicker.module.ts",
+                "file": "src/app/datepicker/injection-tokens/DatepickerLocale.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -4786,26 +4492,6 @@
                 "defaultValue": "Template.bind({})"
             },
             {
-                "name": "Some",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/some/components/some/Some.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "SomeToken",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/some/some.module.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "new InjectionToken<string>('SomeToken')"
-            },
-            {
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -4843,16 +4529,6 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story<DatepickerInputComponent>",
-                "defaultValue": "(args) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/some/components/some/Some.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<SomeComponent>",
                 "defaultValue": "(args) => ({\r\n  props: args\r\n})"
             }
         ],
@@ -5011,12 +4687,12 @@
                     "defaultValue": "new InjectionToken<DatepickerConfig>('DatepickerConfig')"
                 }
             ],
-            "src/app/datepicker/datepicker.module.ts": [
+            "src/app/datepicker/injection-tokens/DatepickerLocale.ts": [
                 {
                     "name": "DatepickerLocale",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/datepicker/datepicker.module.ts",
+                    "file": "src/app/datepicker/injection-tokens/DatepickerLocale.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -5221,40 +4897,6 @@
                     "deprecationMessage": "",
                     "type": "Story<Page>",
                     "defaultValue": "(args: Page) => ({\r\n  props: args,\r\n})"
-                }
-            ],
-            "src/app/some/components/some/Some.stories.ts": [
-                {
-                    "name": "Some",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/some/components/some/Some.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/some/components/some/Some.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<SomeComponent>",
-                    "defaultValue": "(args) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/some/some.module.ts": [
-                {
-                    "name": "SomeToken",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/some/some.module.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "new InjectionToken<string>('SomeToken')"
                 }
             ]
         },
@@ -5495,7 +5137,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/datepicker/datepicker.module.ts",
+                "filePath": "src/app/datepicker/injection-tokens/DatepickerLocale.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -5640,72 +5282,6 @@
                 "name": "DestroyService",
                 "coveragePercent": 0,
                 "coverageCount": "0/3",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/some/components/some/Some.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Some",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/some/components/some/Some.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Template",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/some/components/some/some.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "SomeComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/4",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/some/components/some1/some1.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "Some1Component",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/some/services/some-deep.service.ts",
-                "type": "injectable",
-                "linktype": "injectable",
-                "name": "SomeDeepService",
-                "coveragePercent": 0,
-                "coverageCount": "0/2",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/some/services/some.service.ts",
-                "type": "injectable",
-                "linktype": "injectable",
-                "name": "SomeService",
-                "coveragePercent": 0,
-                "coverageCount": "0/3",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/some/some.module.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "SomeToken",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
                 "status": "low"
             },
             {
