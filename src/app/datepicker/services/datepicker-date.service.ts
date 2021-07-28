@@ -5,7 +5,7 @@ import * as updateLocale from 'dayjs/plugin/updateLocale';
 import * as weekday from 'dayjs/plugin/weekday';
 import * as customParseFormat from 'dayjs/plugin/customParseFormat';
 import {ConfigType} from "dayjs";
-import {DatepickerLocale} from "../datepicker.module";
+import {DatepickerLocale} from "../injection-tokens/DatepickerLocale";
 import {IDatepickerLocale} from "../models/IDatepickerLocale";
 
 @Injectable()

@@ -16,8 +16,7 @@ import {IDatepickerLocale} from "./models/IDatepickerLocale";
 import {locales} from "./configs/locales";
 import {TDatepickerWeekStart} from "./models/TDatepickerWeekStart";
 import { DatepickerTimeComponent } from './components/datepicker-time/datepicker-time.component';
-
-export const DatepickerLocale = new InjectionToken<Required<IDatepickerLocale>>('DatepickerLocale');
+import { DatepickerLocale } from "./injection-tokens/DatepickerLocale";
 
 @NgModule({
   declarations: [

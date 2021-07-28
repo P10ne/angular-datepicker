@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
-import {DatepickerLocale} from "../../datepicker.module";
+import {DatepickerLocale} from "../../injection-tokens/DatepickerLocale";
 import {IDatepickerLocale} from "../../models/IDatepickerLocale";
 
 @Component({

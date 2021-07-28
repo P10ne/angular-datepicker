@@ -17,7 +17,7 @@ import {DestroyService} from "../../../shared/services/destroy.service";
 import {takeUntil} from "rxjs/operators";
 import {DatepickerDate} from "../../models/DatepickerDate";
 import { DatepickerConfig } from "../../models/DatepickerConfig";
-import { DatepickerLocale } from "../../datepicker.module";
+import { DatepickerLocale } from "../../injection-tokens/DatepickerLocale";
 import { IDatepickerLocale } from "../../models/IDatepickerLocale";
 import { getMaskFormat } from "../../utils/getMaskFormat";
 
