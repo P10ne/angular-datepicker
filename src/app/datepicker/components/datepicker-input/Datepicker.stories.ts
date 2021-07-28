@@ -12,7 +12,8 @@ import { NgxMaskModule } from "ngx-mask";
 import { SvgIconsModule } from "../../../svg-icons/svg-icons.module";
 import { DatepickerOverlayService } from "../../services/datepicker-overlay.service";
 import { DatepickerDateService } from "../../services/datepicker-date.service";
-import { DatepickerService } from "../../services/datepicker.service";
+import { DatepickerLocale } from "../../injection-tokens/DatepickerLocale";
+import localeRu from "../../configs/locales/ru";
 
 export default {
   title: 'Components/Datepicker',
@@ -40,6 +41,12 @@ export default {
       providers: [
         DatepickerOverlayService,
         DatepickerDateService,
+        {
+          provide: DatepickerLocale,
+          useValue: {
+            ...localeRu
+          }
+        }
       ]
     })
   ]
