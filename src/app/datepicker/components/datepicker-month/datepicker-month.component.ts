@@ -3,7 +3,7 @@ import { DatepickerService } from "../../services/datepicker.service";
 import { DatepickerDate } from "../../models/DatepickerDate";
 import { takeUntil } from "rxjs/operators";
 import { DestroyService } from "../../../shared/services/destroy.service";
-import { DatepickerLocale } from "../../datepicker.module";
+import { DatepickerLocale } from "../../injection-tokens/DatepickerLocale";
 import { IDatepickerLocale } from "../../models/IDatepickerLocale";
 
 @Component({

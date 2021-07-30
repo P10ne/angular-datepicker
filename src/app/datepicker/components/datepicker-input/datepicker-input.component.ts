@@ -2,12 +2,12 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
-  ElementRef,
+  ElementRef, EventEmitter,
   forwardRef,
   Inject,
   Injector,
   Input,
-  OnInit,
+  OnInit, Output,
   ViewChild
 } from '@angular/core';
 import { DatepickerConfigToken, DatepickerOverlayService } from "../../services/datepicker-overlay.service";
@@ -18,7 +18,7 @@ import { DestroyService } from "../../../shared/services/destroy.service";
 import { takeUntil } from "rxjs/operators";
 import { DatepickerDate } from "../../models/DatepickerDate";
 import { DatepickerConfig } from "../../models/DatepickerConfig";
-import { DatepickerLocale } from "../../datepicker.module";
+import { DatepickerLocale } from "../../injection-tokens/DatepickerLocale";
 import { IDatepickerLocale } from "../../models/IDatepickerLocale";
 import { getMaskFormat } from "../../utils/getMaskFormat";
 
@@ -63,6 +63,10 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
     this.config.timeFormat = v;
   }
 
+  // Only for storybook actions test
+  @Output()
+  pickerOpened = new EventEmitter<void>();
+
   get dateFormat(): string {
     if (!this.config.allowTime) { return this.config.dateFormat }
     return `${this.config.dateFormat} ${this.config.timeFormat}`;
@@ -93,6 +97,7 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
       this.datepickerService,
       this.config
     );
+    this.pickerOpened.emit();
   }
 
   ngOnInit(): void {
