@@ -1,4 +1,4 @@
-import { Meta, moduleMetadata, Story } from "@storybook/angular";
+import { componentWrapperDecorator, Meta, moduleMetadata, Story } from "@storybook/angular";
 import { DatepickerOverlayComponent } from "../datepicker-overlay/datepicker-overlay.component";
 import { DatepickerInputComponent } from "./datepicker-input.component";
 import { DatepickerMonthComponent } from "../datepicker-month/datepicker-month.component";
@@ -14,6 +14,7 @@ import { DatepickerOverlayService } from "../../services/datepicker-overlay.serv
 import { DatepickerDateService } from "../../services/datepicker-date.service";
 import { DatepickerLocale } from "../../injection-tokens/DatepickerLocale";
 import localeRu from "../../configs/locales/ru";
+import { action } from "@storybook/addon-actions";
 
 export default {
   title: 'Components/Datepicker',
@@ -48,12 +49,35 @@ export default {
           }
         }
       ]
-    })
-  ]
+    }),
+    componentWrapperDecorator(story => `<div style="width: 200px; height: 310px">${story}</div>`),
+  ],
+  argTypes: {
+    dateFormat: {
+      options: ['dd.MM.yyyy', 'dd-MM-yyyy', 'MM.dd.yyyy'],
+      control: {type: 'select'},
+      defaultValue: 'dd.MM.yyyy'
+    },
+    timeFormat: {
+      defaultValue: 'hh:mm'
+    },
+    allowTime: {
+      defaultValue: true
+    }
+  }
 } as Meta;
 
 const Template: Story<DatepickerInputComponent> = (args) => ({
-  props: args
+  props: {
+    ...args,
+    pickerOpened: action('pickerOpened')
+  }
 })
 
+
 export const Datepicker = Template.bind({});
+
+export const DatepickerTime = Template.bind({});
+DatepickerTime.args = {
+  allowTime: true
+}
