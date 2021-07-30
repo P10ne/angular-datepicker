@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import {DatepickerService} from "../../services/datepicker.service";
-import {DatepickerTime} from "../../models/DatepickerTime";
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { DatepickerService } from "../../services/datepicker.service";
+import { DatepickerTime } from "../../models/DatepickerTime";
 import { DatepickerConfigToken } from "../../services/datepicker-overlay.service";
 import { DatepickerConfig } from "../../models/DatepickerConfig";
 
@@ -14,7 +14,8 @@ enum EPickerType {
 @Component({
   selector: 'app-file-preview-overlay',
   templateUrl: './datepicker-overlay.component.html',
-  styleUrls: ['./datepicker-overlay.component.scss']
+  styleUrls: ['./datepicker-overlay.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DatepickerOverlayComponent implements OnInit {
   public pickerTypes = EPickerType;

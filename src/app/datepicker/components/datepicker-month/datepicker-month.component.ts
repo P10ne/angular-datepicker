@@ -1,15 +1,16 @@
-import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
-import {DatepickerService} from "../../services/datepicker.service";
-import {DatepickerDate} from "../../models/DatepickerDate";
-import {takeUntil} from "rxjs/operators";
-import {DestroyService} from "../../../shared/services/destroy.service";
-import {DatepickerLocale} from "../../injection-tokens/DatepickerLocale";
-import {IDatepickerLocale} from "../../models/IDatepickerLocale";
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { DatepickerService } from "../../services/datepicker.service";
+import { DatepickerDate } from "../../models/DatepickerDate";
+import { takeUntil } from "rxjs/operators";
+import { DestroyService } from "../../../shared/services/destroy.service";
+import { DatepickerLocale } from "../../injection-tokens/DatepickerLocale";
+import { IDatepickerLocale } from "../../models/IDatepickerLocale";
 
 @Component({
   selector: 'app-datepicker-month',
   templateUrl: './datepicker-month.component.html',
   styleUrls: ['./datepicker-month.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DestroyService]
 })
 export class DatepickerMonthComponent implements OnInit {

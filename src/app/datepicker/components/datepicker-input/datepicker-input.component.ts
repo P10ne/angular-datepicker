@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   ElementRef, EventEmitter,
   forwardRef,
@@ -10,12 +11,12 @@ import {
   ViewChild
 } from '@angular/core';
 import { DatepickerConfigToken, DatepickerOverlayService } from "../../services/datepicker-overlay.service";
-import {DatepickerService} from "../../services/datepicker.service";
-import {DatepickerOverlayRef} from "../../models/DatepickerOverlayRef";
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {DestroyService} from "../../../shared/services/destroy.service";
-import {takeUntil} from "rxjs/operators";
-import {DatepickerDate} from "../../models/DatepickerDate";
+import { DatepickerService } from "../../services/datepicker.service";
+import { DatepickerOverlayRef } from "../../models/DatepickerOverlayRef";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { DestroyService } from "../../../shared/services/destroy.service";
+import { takeUntil } from "rxjs/operators";
+import { DatepickerDate } from "../../models/DatepickerDate";
 import { DatepickerConfig } from "../../models/DatepickerConfig";
 import { DatepickerLocale } from "../../injection-tokens/DatepickerLocale";
 import { IDatepickerLocale } from "../../models/IDatepickerLocale";
@@ -25,6 +26,7 @@ import { getMaskFormat } from "../../utils/getMaskFormat";
   selector: 'app-datepicker-input',
   templateUrl: './datepicker-input.component.html',
   styleUrls: ['./datepicker-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -86,7 +88,8 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
     private datepickerOverlayService: DatepickerOverlayService,
     private datepickerService: DatepickerService,
     private destroy$: DestroyService,
-    @Inject(DatepickerConfigToken) public config: DatepickerConfig
+    @Inject(DatepickerConfigToken) public config: DatepickerConfig,
+    private cdr: ChangeDetectorRef
   ) {}
   public openPicker(): void {
     this.layoutRef = this.datepickerOverlayService.open(
@@ -112,6 +115,7 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
       if (date) {
         this.value = date.getJSDate();
         this.layoutRef?.close();
+        this.cdr.markForCheck();
       }
     });
   }

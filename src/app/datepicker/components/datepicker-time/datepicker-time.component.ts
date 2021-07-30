@@ -1,14 +1,14 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {DatepickerTime} from "../../models/DatepickerTime";
-import {DatepickerDateService} from "../../services/datepicker-date.service";
-import {DatepickerService} from "../../services/datepicker.service";
-import {map, takeUntil} from "rxjs/operators";
-import {DestroyService} from "../../../shared/services/destroy.service";
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { DatepickerTime } from "../../models/DatepickerTime";
+import { DatepickerService } from "../../services/datepicker.service";
+import { map, takeUntil } from "rxjs/operators";
+import { DestroyService } from "../../../shared/services/destroy.service";
 
 @Component({
   selector: 'app-datepicker-time',
   templateUrl: './datepicker-time.component.html',
   styleUrls: ['./datepicker-time.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DestroyService]
 })
 export class DatepickerTimeComponent implements OnInit {
