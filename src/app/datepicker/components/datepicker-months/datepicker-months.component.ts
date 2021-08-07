@@ -1,20 +1,24 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { DatepickerLocale } from "../../injection-tokens/DatepickerLocale";
+import { IDatepickerLocale } from "../../models/IDatepickerLocale";
 
 @Component({
   selector: 'app-datepicker-months',
   templateUrl: './datepicker-months.component.html',
-  styleUrls: ['./datepicker-months.component.scss']
+  styleUrls: ['./datepicker-months.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DatepickerMonthsComponent implements OnInit {
   @Output()
   monthSelected: EventEmitter<number> = new EventEmitter<number>();
 
-  public monthNames = [
-    'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-  ];
+  public get months(): string[] | undefined {
+    return this.localeConfig.months;
+  }
 
-  constructor() { }
+  constructor(
+    @Inject(DatepickerLocale) private localeConfig: IDatepickerLocale
+  ) { }
 
   ngOnInit(): void {
   }

@@ -1,13 +1,16 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {DatepickerService} from "../../services/datepicker.service";
-import {DatepickerDate} from "../../models/DatepickerDate";
-import {takeUntil} from "rxjs/operators";
-import {DestroyService} from "../../../shared/services/destroy.service";
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { DatepickerService } from "../../services/datepicker.service";
+import { DatepickerDate } from "../../models/DatepickerDate";
+import { takeUntil } from "rxjs/operators";
+import { DestroyService } from "../../../shared/services/destroy.service";
+import { DatepickerLocale } from "../../injection-tokens/DatepickerLocale";
+import { IDatepickerLocale } from "../../models/IDatepickerLocale";
 
 @Component({
   selector: 'app-datepicker-month',
   templateUrl: './datepicker-month.component.html',
   styleUrls: ['./datepicker-month.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DestroyService]
 })
 export class DatepickerMonthComponent implements OnInit {
@@ -26,12 +29,13 @@ export class DatepickerMonthComponent implements OnInit {
   @Output()
   selectDay: EventEmitter<number> = new EventEmitter<number>();
 
-  public monthShortNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+  public get weekDaysMin(): string[] | undefined {
+    return this.localeConfig.weekDaysMin;
+  }
 
-  public monthNames = [
-    'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-  ];
+  public get months(): string[] | undefined {
+    return this.localeConfig.months
+  }
 
   public days: (DatepickerDate | null)[][] = [];
 
@@ -39,25 +43,21 @@ export class DatepickerMonthComponent implements OnInit {
 
   public currentSelectedDate!: DatepickerDate;
 
-  // @ts-ignore
-  get month(): string {
+  get month(): string | undefined {
     if (this.currentSelectedDate) {
-      return this.monthNames[this.currentSelectedDate.getMonth()];
+      return this.months && this.months[this.currentSelectedDate.getMonth()];
     }
+    return;
   }
 
   get year(): number {
     return this.currentSelectedDate.getYear();
   }
 
-  get currentDate(): number {
-    // todo создается новый экземпляр при каждом вызове
-    return this.datepickerService.currentDate.getDate();
-  }
-
   constructor(
     private datepickerService: DatepickerService,
-    private destroy$: DestroyService
+    private destroy$: DestroyService,
+    @Inject(DatepickerLocale) private localeConfig: IDatepickerLocale
   ) { }
 
   ngOnInit(): void {
@@ -106,8 +106,8 @@ export class DatepickerMonthComponent implements OnInit {
     this.changeYear.emit(this.currentSelectedDate.getYear() - 1);
   }
 
-  public selectMonthDay(date: Date): void {
-    this.datepickerService.setSelectedDate(date);
+  public selectMonthDay(date: number): void {
+    this.selectDay.emit(date);
   }
 
 }

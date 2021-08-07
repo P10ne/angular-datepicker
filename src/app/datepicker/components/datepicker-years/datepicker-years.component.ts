@@ -1,10 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {DatepickerService} from "../../services/datepicker.service";
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { DatepickerService } from "../../services/datepicker.service";
 
 @Component({
   selector: 'app-datepicker-years',
   templateUrl: './datepicker-years.component.html',
-  styleUrls: ['./datepicker-years.component.scss']
+  styleUrls: ['./datepicker-years.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DatepickerYearsComponent implements OnInit {
   @Output()

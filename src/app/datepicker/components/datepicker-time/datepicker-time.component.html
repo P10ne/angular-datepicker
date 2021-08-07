@@ -1,0 +1,41 @@
+<div class="datepicker-time">
+  <div class="datepicker-time-header">
+    <span>
+      {{ selectedTime.getHours() | number:'2.0-0' }}:
+      {{ selectedTime.getMinutes()  | number:'2.0-0' }}:
+      {{ selectedTime.getSeconds()  | number:'2.0-0'}}
+    </span>
+  </div>
+  <div class="datepicker-time-main">
+    <ul class="datepicker-time__col">
+      <li
+        class="datepicker-time__item"
+        [class.datepicker-time__item_current-selected]="item === selectedTime.getHours()"
+        *ngFor="let item of hours"
+        (click)="setHours(item)"
+      >{{item}}</li>
+    </ul>
+    <ul class="datepicker-time__col">
+      <li
+        class="datepicker-time__item"
+        [class.datepicker-time__item_current-selected]="item === selectedTime.getMinutes()"
+        *ngFor="let item of minutes"
+        (click)="setMinutes(item)"
+      >{{item}}</li>
+    </ul>
+    <ul class="datepicker-time__col">
+      <li
+        class="datepicker-time__item"
+        [class.datepicker-time__item_current-selected]="item === selectedTime.getSeconds()"
+        *ngFor="let item of seconds"
+        (click)="setSeconds(item)"
+      >{{item}}</li>
+    </ul>
+  </div>
+  <div class="datepicker-time-footer">
+    <button
+      class="btn"
+      (click)="setTime()"
+    >ОК</button>
+  </div>
+</div>

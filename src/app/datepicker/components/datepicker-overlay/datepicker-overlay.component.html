@@ -1,5 +1,10 @@
-<div class="wrapper">
+<div class="datepicker-overlay">
   <ng-container [ngSwitch]="pickerType">
+    <ng-template [ngSwitchCase]="pickerTypes.Time">
+      <app-datepicker-time
+        (selectTime)="selectTimeHandler($event)"
+      ></app-datepicker-time>
+    </ng-template>
     <ng-template [ngSwitchCase]="pickerTypes.Days">
       <app-datepicker-month
         (changeMonth)="setCurrentSelectedMonth($event)"
