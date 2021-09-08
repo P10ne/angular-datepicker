@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DestroyService } from "./services/destroy.service";
 
 
 
@@ -11,9 +10,6 @@ import { DestroyService } from "./services/destroy.service";
   ],
   exports: [
     CommonModule
-  ],
-  providers: [
-    DestroyService
   ]
 })
 export class SharedModule { }

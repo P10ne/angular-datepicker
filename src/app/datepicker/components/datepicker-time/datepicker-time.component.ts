@@ -2,16 +2,15 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from
 import { DatepickerTime } from "../../models/DatepickerTime";
 import { DatepickerService } from "../../services/datepicker.service";
 import { map, takeUntil } from "rxjs/operators";
-import { DestroyService } from "../../../shared/services/destroy.service";
+import { withDestroy } from "../../mixins/withDestroy";
 
 @Component({
   selector: 'app-datepicker-time',
   templateUrl: './datepicker-time.component.html',
   styleUrls: ['./datepicker-time.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [DestroyService]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DatepickerTimeComponent implements OnInit {
+export class DatepickerTimeComponent extends withDestroy() implements OnInit {
   @Output()
   private selectTime: EventEmitter<DatepickerTime> = new EventEmitter<DatepickerTime>();
 
@@ -24,9 +23,10 @@ export class DatepickerTimeComponent implements OnInit {
   public seconds: number[] = new Array(60).fill(0).map((v, i) => i);
 
   constructor(
-    private datepickerService: DatepickerService,
-    private destroy$: DestroyService
-  ) { }
+    private datepickerService: DatepickerService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.subscribeToDateChanged();

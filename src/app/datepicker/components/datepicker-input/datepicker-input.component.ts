@@ -13,14 +13,16 @@ import {
 import { DatepickerConfigToken, DatepickerOverlayService } from "../../services/datepicker-overlay.service";
 import { DatepickerService } from "../../services/datepicker.service";
 import { DatepickerOverlayRef } from "../../models/DatepickerOverlayRef";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { DestroyService } from "../../../shared/services/destroy.service";
+import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { takeUntil } from "rxjs/operators";
 import { DatepickerDate } from "../../models/DatepickerDate";
 import { DatepickerConfig } from "../../models/DatepickerConfig";
 import { DatepickerLocale } from "../../injection-tokens/DatepickerLocale";
 import { IDatepickerLocale } from "../../models/IDatepickerLocale";
 import { getMaskFormat } from "../../utils/getMaskFormat";
+import { withSimpleTextControlValueAccessor } from "../../mixins/withSimpleTextControlValueAccessor";
+import { withDestroy } from "../../mixins/withDestroy";
+import { Mixin } from "ts-mixer";
 
 @Component({
   selector: 'app-datepicker-input',
@@ -43,11 +45,10 @@ import { getMaskFormat } from "../../utils/getMaskFormat";
       },
       deps: [Injector]
     },
-    DatepickerService,
-    DestroyService
+    DatepickerService
   ]
 })
-export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlValueAccessor {
+export class DatepickerInputComponent extends Mixin(withDestroy(), withSimpleTextControlValueAccessor()) implements OnInit, AfterViewInit {
   @Input()
   set allowTime(v: boolean) {
     this.config.allowTime = v;
@@ -80,17 +81,16 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
 
   @ViewChild('btn', {read: ElementRef}) private btn!: ElementRef;
 
-  public inputValue: Date | null = null;
-
   private layoutRef: DatepickerOverlayRef | undefined;
 
   constructor(
     private datepickerOverlayService: DatepickerOverlayService,
     private datepickerService: DatepickerService,
-    private destroy$: DestroyService,
     @Inject(DatepickerConfigToken) public config: DatepickerConfig,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+    super();
+  }
   public openPicker(): void {
     this.layoutRef = this.datepickerOverlayService.open(
       this.datepicker,
@@ -121,36 +121,10 @@ export class DatepickerInputComponent implements OnInit, AfterViewInit, ControlV
   }
 
   private initDate(): void {
-    if (this.inputValue) {
-      this.datepickerService.setSelectedDate(this.inputValue);
-      this.datepickerService.setCurrentSelectedDate(this.inputValue);
+    if (this.value) {
+      this.datepickerService.setSelectedDate(this.value);
+      this.datepickerService.setCurrentSelectedDate(this.value);
     }
-  }
-
-  // ControlValueAccessor implementation
-  onChange: any = () => {}
-  onTouch: any = () => {}
-
-  set value(val: Date | null) {
-    this.inputValue = val;
-    this.onChange(val);
-    this.onTouch();
-  }
-
-  get value(): Date | null {
-    return this.inputValue;
-  }
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouch = fn;
-  }
-
-  writeValue(obj: Date | null): void {
-    this.value = obj;
   }
 
   modelChangeHandler(nextModelValue: string): void {

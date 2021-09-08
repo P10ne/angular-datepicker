@@ -1,4 +1,4 @@
-import {InjectionToken, ModuleWithProviders, NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import { OverlayModule } from "@angular/cdk/overlay";
 import { DatepickerOverlayComponent } from "./components/datepicker-overlay/datepicker-overlay.component";
 import { DatepickerInputComponent } from './components/datepicker-input/datepicker-input.component';
@@ -8,7 +8,6 @@ import { DatepickerMonthsComponent } from './components/datepicker-months/datepi
 import { DatepickerYearsComponent } from './components/datepicker-years/datepicker-years.component';
 import {FormsModule} from "@angular/forms";
 import {DatepickerDateService} from "./services/datepicker-date.service";
-import {SharedModule} from "../shared/shared.module";
 import { NgxMaskModule } from 'ngx-mask'
 import {SvgIconsModule} from "../svg-icons/svg-icons.module";
 import {IDatepickerLocaleConfig} from "./models/IDatepickerLocaleConfig";
@@ -17,6 +16,8 @@ import {locales} from "./configs/locales";
 import {TDatepickerWeekStart} from "./models/TDatepickerWeekStart";
 import { DatepickerTimeComponent } from './components/datepicker-time/datepicker-time.component';
 import { DatepickerLocale } from "./injection-tokens/DatepickerLocale";
+import { CommonModule } from "@angular/common";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -28,9 +29,9 @@ import { DatepickerLocale } from "./injection-tokens/DatepickerLocale";
     DatepickerTimeComponent
   ],
   imports: [
+    SharedModule,
     OverlayModule,
     FormsModule,
-    SharedModule,
     NgxMaskModule.forRoot(),
     SvgIconsModule
   ],

@@ -2,18 +2,17 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Inject, OnInit, Outpu
 import { DatepickerService } from "../../services/datepicker.service";
 import { DatepickerDate } from "../../models/DatepickerDate";
 import { takeUntil } from "rxjs/operators";
-import { DestroyService } from "../../../shared/services/destroy.service";
 import { DatepickerLocale } from "../../injection-tokens/DatepickerLocale";
 import { IDatepickerLocale } from "../../models/IDatepickerLocale";
+import { withDestroy } from "../../mixins/withDestroy";
 
 @Component({
   selector: 'app-datepicker-month',
   templateUrl: './datepicker-month.component.html',
   styleUrls: ['./datepicker-month.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [DestroyService]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DatepickerMonthComponent implements OnInit {
+export class DatepickerMonthComponent extends withDestroy() implements OnInit {
   @Output()
   changeMonth: EventEmitter<number> = new EventEmitter<number>();
 
@@ -56,9 +55,10 @@ export class DatepickerMonthComponent implements OnInit {
 
   constructor(
     private datepickerService: DatepickerService,
-    private destroy$: DestroyService,
     @Inject(DatepickerLocale) private localeConfig: IDatepickerLocale
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.subscribeToDateChanged();
@@ -77,7 +77,7 @@ export class DatepickerMonthComponent implements OnInit {
 
   private subscribeToDateChanged(): void {
     this.datepickerService.currentSelectedDate$.pipe(
-      takeUntil(this.destroy$)
+      takeUntil(this.destroy$),
     ).subscribe((selectedDate) => {
       this.currentSelectedDate = selectedDate;
       this.days = this.datepickerService.getMonthDates(selectedDate.getJSDate());
