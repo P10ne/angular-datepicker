@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { DatepickerService } from "../../services/datepicker.service";
+import { DatepickerService } from "../../services/datepicker/datepicker.service";
 import { DatepickerTime } from "../../models/DatepickerTime";
 import { DatepickerConfigToken } from "../../services/datepicker-overlay.service";
 import { DatepickerConfig } from "../../models/DatepickerConfig";

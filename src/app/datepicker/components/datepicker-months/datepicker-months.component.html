@@ -3,6 +3,7 @@
     *ngFor="let month of months; let i = index"
     (click)="selectMonth(i)"
     class="datepicker-months__item"
+    [attr.data-test-month-index]="i"
   >
     {{month}}
   </span>

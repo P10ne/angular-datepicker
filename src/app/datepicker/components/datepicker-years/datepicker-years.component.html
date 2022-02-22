@@ -1,13 +1,17 @@
 <div class="datepicker-years">
   <div class="datepicker-years-header">
     <div>
-      <button class="btn datepicker-years-header__arrow" (click)="updateYears(-1)">
+      <button
+        class="btn datepicker-years-header__arrow"
+        data-test-id="prev-decade-btn"
+        (click)="updateYears(-1)"
+      >
         <<
       </button>
     </div>
     <div>
       <div>
-        <span *ngIf="years && years.length > 0">
+        <span *ngIf="years && years.length > 0" data-test-id="years-range">
           {{years[0]}} - {{years[years.length - 1]}}
         </span>
       </div>
@@ -15,6 +19,7 @@
     <div>
       <button
         class="btn datepicker-years-header__arrow"
+        data-test-id="next-decade-btn"
         (click)="updateYears(1)"
       >
         >>
@@ -24,6 +29,7 @@
   <div class="datepicker-years-main">
     <span
       *ngFor="let item of years"
+      [attr.data-test-year-id]="item"
       class="datepicker-years__item"
       (click)="selectYear(item)"
     >{{item}}</span>

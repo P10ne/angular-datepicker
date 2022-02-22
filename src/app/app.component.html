@@ -1,3 +1,5 @@
 <div class="app">
-  <app-datepicker-input></app-datepicker-input>
+  <form [formGroup]="formGroup">
+    <app-datepicker-input formControlName="date"></app-datepicker-input>
+  </form>
 </div>

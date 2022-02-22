@@ -11,7 +11,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { DatepickerConfigToken, DatepickerOverlayService } from "../../services/datepicker-overlay.service";
-import { DatepickerService } from "../../services/datepicker.service";
+import { DatepickerService } from "../../services/datepicker/datepicker.service";
 import { DatepickerOverlayRef } from "../../models/DatepickerOverlayRef";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { takeUntil } from "rxjs/operators";
@@ -132,6 +132,7 @@ export class DatepickerInputComponent extends Mixin(withDestroy(), withSimpleTex
     const date = new DatepickerDate(nextModelValue, DatepickerDate.getFormat(this.dateFormat), true);
     if (date.isValid()) {
       this.value = date.getJSDate();
+      this.initDate();
     }
   }
 

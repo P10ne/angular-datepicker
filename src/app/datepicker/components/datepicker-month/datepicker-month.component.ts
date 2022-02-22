@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { DatepickerService } from "../../services/datepicker.service";
+import { DatepickerService } from "../../services/datepicker/datepicker.service";
 import { DatepickerDate } from "../../models/DatepickerDate";
 import { takeUntil } from "rxjs/operators";
 import { DatepickerLocale } from "../../injection-tokens/DatepickerLocale";

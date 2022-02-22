@@ -1,29 +1,51 @@
 <div class="datepicker-month">
   <div class="datepicker-month-header">
     <div>
-      <button class="btn datepicker-month-header__arrow" (click)="prevYear()">
+      <button
+        class="btn datepicker-month-header__arrow"
+        (click)="prevYear()"
+        data-test-id="datepicker-month_prev-year-btn"
+      >
         <<
       </button>
-      <button class="btn datepicker-month-header__arrow" (click)="prevMonth()">
+      <button
+        class="btn datepicker-month-header__arrow"
+        (click)="prevMonth()"
+        data-test-id="datepicker-month_prev-month-btn"
+      >
         <
       </button>
     </div>
     <div>
       <div>
-        <span (click)="monthClick.emit()">
+        <span
+          (click)="monthClick.emit()"
+          data-test-id="datepicker-month_month-label"
+        >
           {{month}}
         </span>
         <span>, </span>
-        <span (click)="yearClick.emit()">
+        <span
+          (click)="yearClick.emit()"
+          data-test-id="datepicker-month_year-label"
+        >
           {{year}}
         </span>
       </div>
     </div>
     <div>
-      <button class="btn datepicker-month-header__arrow" (click)="nextMonth()">
+      <button
+        class="btn datepicker-month-header__arrow"
+        (click)="nextMonth()"
+        data-test-id="datepicker-month_next-month-btn"
+      >
         >
       </button>
-      <button class="btn datepicker-month-header__arrow" (click)="nextYear()">
+      <button
+        class="btn datepicker-month-header__arrow"
+        (click)="nextYear()"
+        data-test-id="datepicker-month_next-year-btn"
+      >
         >>
       </button>
     </div>
@@ -46,12 +68,13 @@
         *ngFor="let weekMas of days"
       >
         <td
+          *ngFor="let date of weekMas"
           class="datepicker-month-table__cell"
           [class.datepicker-month-table__cell_day]="!!date"
           [class.datepicker-month-table__cell_day_current]="isCurrentDate(date!)"
           [class.datepicker-month-table__cell_day_selected]="isSelectedDate(date!)"
-          *ngFor="let date of weekMas"
           (click)="!!date && selectMonthDay(date.getDate())"
+          [attr.data-test-day-of-month]="date?.getDate()"
         >
           {{date?.getDate()}}
         </td>

@@ -3,7 +3,7 @@ import {Overlay, OverlayConfig, OverlayRef} from "@angular/cdk/overlay";
 import {DatepickerOverlayComponent} from "../components/datepicker-overlay/datepicker-overlay.component";
 import {ComponentPortal} from "@angular/cdk/portal";
 import {DatepickerOverlayRef} from "../models/DatepickerOverlayRef";
-import {DatepickerService} from "./datepicker.service";
+import {DatepickerService} from "./datepicker/datepicker.service";
 import { DatepickerConfig } from "../models/DatepickerConfig";
 
 export const DatepickerConfigToken = new InjectionToken<DatepickerConfig>('DatepickerConfig');

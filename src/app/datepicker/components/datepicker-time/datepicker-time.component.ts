@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DatepickerTime } from "../../models/DatepickerTime";
-import { DatepickerService } from "../../services/datepicker.service";
+import { DatepickerService } from "../../services/datepicker/datepicker.service";
 import { map, takeUntil } from "rxjs/operators";
 import { withDestroy } from "../../mixins/withDestroy";
 

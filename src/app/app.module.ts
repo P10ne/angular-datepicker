@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { DatepickerModule } from "./datepicker/datepicker.module";
 import { AppComponent } from './app.component';
 import {CommonModule} from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import {CommonModule} from "@angular/common";
   imports: [
     CommonModule,
     BrowserModule,
+    ReactiveFormsModule,
     DatepickerModule.forRoot()
   ],
   bootstrap: [AppComponent]

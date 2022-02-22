@@ -1,6 +1,7 @@
 import * as dayjs from 'dayjs';
 import {Dayjs, OpUnitType, ConfigType, OptionType} from "dayjs";
 import {DatepickerTime} from "./DatepickerTime";
+import * as weekdayPlugin from 'dayjs/plugin/weekday'; // types for testing
 
 export class DatepickerDate {
   private _date: Dayjs;
